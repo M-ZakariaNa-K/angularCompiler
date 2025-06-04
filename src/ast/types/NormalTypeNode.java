@@ -48,15 +48,25 @@ public class NormalTypeNode extends TypeNode {
         return Collections.emptyList();
     }
 
-    @Override
-    public String toString() {
-        return "NormalTypeNode(kind=" + kind +
-                (kind == NormalKind.IDENTIFIER ? ", identifier=" + identifier : "") +
-                ", line=" + line + ")";
-    }
 
     @Override
     public String getStringType() {
         return kind == NormalKind.IDENTIFIER ? identifier : kind.name();
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("NormalTypeNode\n");
+        sb.append(indent).append("  ").append(
+                kind == NormalKind.IDENTIFIER ? identifier : kind.name()
+        ).append("\n");
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 }

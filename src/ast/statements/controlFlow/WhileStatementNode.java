@@ -51,4 +51,28 @@ public class WhileStatementNode extends StatementNode {
         children.add(body);
         return Collections.unmodifiableList(children);
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("WhileStatementNode\n");
+
+        sb.append(indent).append("  Condition:\n");
+        sb.append(condition.toString(level + 2));
+
+        sb.append(indent).append("  Body:\n");
+        sb.append(body.toString(level + 2));
+
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

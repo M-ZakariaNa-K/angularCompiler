@@ -2,6 +2,7 @@ package ast.statements.assignment;
 
 import ast.ASTNode;
 import ast.expression.ExpressionNode;
+import ast.statements.StatementNode;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,16 +42,29 @@ public class ArrAssignmentNode extends AssignmentToNode {
         return line;
     }
 
-    @Override
-    public String toString() {
-        return "ArrAssignmentNode(identifier=" + identifier +
-                ", index=" + indexExpression +
-                ", line=" + line + ")";
-    }
-
 
     @Override
     public List<ASTNode> getChildren() {
         return Collections.singletonList(indexExpression);
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+
+        sb.append(indent).append("ArrAssignmentNode [identifier=").append(identifier).append("]\n");
+        sb.append(indexExpression.toString(level + 1));
+
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

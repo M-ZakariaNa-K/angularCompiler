@@ -103,4 +103,34 @@ public class NormalFunctionDeclarationNode extends FunctionDeclarationNode {
     public TypeNode getType() {
         return type;
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("NormalFunctionDeclarationNode: ").append(name);
+        if (type != null) {
+            sb.append(" : ").append(type.toString());
+        }
+        sb.append(" at line ").append(line).append("\n");
+
+        if (!parameterList.isEmpty()) {
+            sb.append(indent).append("  Parameters:\n");
+            for (ExpressionParameterNode param : parameterList) {
+                sb.append(param.toString(level + 2));
+            }
+        }
+
+        if (block != null) {
+            sb.append(indent).append("  Body:\n");
+            sb.append(block.toString(level + 2));
+        }
+
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        return String.join("", java.util.Collections.nCopies(level, "  "));
+    }
+
 }

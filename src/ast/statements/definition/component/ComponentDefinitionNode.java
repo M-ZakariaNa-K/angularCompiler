@@ -14,14 +14,14 @@ public class ComponentDefinitionNode extends StatementNode {
     private final ComponentConfigNode componentConfigNode;
     private final String className;
     private final ExtendsStatementNode extendsStatement; // can be null
-    private final List<ImplementsStatementNode> implementsStatements;
+    private final ImplementsStatementNode implementsStatements;
     private final ClassBodyNode classBody;
     private final int line;
     private final boolean isExported;
 
     public ComponentDefinitionNode(
             ComponentConfigNode componentConfigNode, String className,
-           ExtendsStatementNode extendsStatement, List<ImplementsStatementNode> implementsStatements,
+           ExtendsStatementNode extendsStatement, ImplementsStatementNode implementsStatements,
            ClassBodyNode classBody,
            int line,
             boolean isExported
@@ -46,9 +46,7 @@ public class ComponentDefinitionNode extends StatementNode {
         code.append(componentConfigNode.generateCode());
         code.append("})\nclass ").append(className);
         if (extendsStatement != null) code.append(" ").append(extendsStatement.generateCode());
-        for (ASTNode impl : implementsStatements) {
-            code.append(" ").append(impl.generateCode());
-        }
+        code.append(" ").append(implementsStatements.generateCode());
         code.append(" ").append(classBody.generateCode());
         return code.toString();
     }
@@ -63,7 +61,7 @@ public class ComponentDefinitionNode extends StatementNode {
         List<ASTNode> children = new ArrayList<>();
         children.add(componentConfigNode);
         if (extendsStatement != null) children.add(extendsStatement);
-        children.addAll(implementsStatements);
+        children.add(implementsStatements);
         children.add(classBody);
         return children;
     }
@@ -85,7 +83,7 @@ public class ComponentDefinitionNode extends StatementNode {
         return extendsStatement;
     }
 
-    public List<ImplementsStatementNode> getImplementsStatements() {
+    public ImplementsStatementNode getImplementsStatements() {
         return implementsStatements;
     }
 
@@ -96,4 +94,36 @@ public class ComponentDefinitionNode extends StatementNode {
     public boolean isExported() {
         return isExported;
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ComponentDefinitionNode(").append(className).append(") at line ").append(line).append("\n");
+
+        sb.append(indent).append("  Exported: ").append(isExported).append("\n");
+
+        if (componentConfigNode != null) {
+            sb.append(componentConfigNode.toString(level + 1));
+        }
+
+        if (extendsStatement != null) {
+            sb.append(extendsStatement.toString(level + 1));
+        }
+
+        if (implementsStatements != null) {
+            sb.append(implementsStatements.toString(level + 1));
+        }
+
+        if (classBody != null) {
+            sb.append(classBody.toString(level + 1));
+        }
+
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        return String.join("", java.util.Collections.nCopies(level, "  "));
+    }
+
 }

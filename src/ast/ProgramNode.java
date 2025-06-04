@@ -45,10 +45,15 @@ public class ProgramNode implements ASTNode {
         return new ArrayList<>(statements);    }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         StringBuilder sb = new StringBuilder("ProgramNode:\n");
-        for (StatementNode stmt : statements) {
-            sb.append("  ").append(stmt).append("\n");
+        if (statements != null && !statements.isEmpty()) {
+            for (StatementNode stmt : statements) {
+                for (int i = 0; i< level; i++){
+                    sb.append("  ");
+                }
+                sb.append("  ").append(stmt.toString(level + 1)).append("\n");
+            }
         }
         return sb.toString();
     }

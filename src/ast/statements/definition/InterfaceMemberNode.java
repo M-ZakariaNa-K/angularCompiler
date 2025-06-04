@@ -37,7 +37,13 @@ public class InterfaceMemberNode implements ASTNode {
     }
 
     @Override
-    public String toString() {
-        return "InterfaceMember(" + name + ": " + type + ")";
+    public String toString(int level) {
+        String indent = getIndent(level);
+        return indent + "InterfaceMember " + name + ": " + type.getSymbolName() + " at line " + line + "\n";
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 }

@@ -29,8 +29,25 @@ public class  IdentifierNode extends BasePrimaryNode{
         return line;
     }
 
+
     @Override
     public List<ASTNode> getChildren() {
         return Collections.emptyList();
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getIndent(level)).append("IdentifierNode: ").append(id).append("\n");
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder indent = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            indent.append("  ");
+        }
+        return indent.toString();
+    }
+
 }

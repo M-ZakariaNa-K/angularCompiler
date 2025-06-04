@@ -47,4 +47,27 @@ public class EnumValueNode extends DeclarationNode {
         return value != null ? Collections.singletonList(value) : Collections.emptyList();
     }
 
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("EnumValueNode: ").append(name);
+        if (value != null) {
+            sb.append(" =\n");
+            sb.append(value.toString(level + 1));
+        } else {
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
+
 }

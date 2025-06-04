@@ -29,8 +29,20 @@ public class StylesPropertyNode extends ComponentPropertyNode {
     }
 
     @Override
-    public String toString() {
-        return "Styles(" + styles + ")";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("StylesPropertyNode at line ").append(getLine()).append("\n");
+        for (String style : styles) {
+            sb.append(indent).append("  ").append(style).append("\n");
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }
 

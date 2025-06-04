@@ -7,6 +7,7 @@ import ast.statements.StatementNode;
 import ast.types.TypeNode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ParameterNode implements ASTNode {
@@ -61,9 +62,23 @@ public class ParameterNode implements ASTNode {
         if (type != null) children.add(type);
         return children;
     }
-
     @Override
-    public String toString() {
-        return generateCode();
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ParameterNode: ").append(identifier).append("\n");
+        if (accessModifier != null) {
+            sb.append(accessModifier.toString(level + 1));
+        }
+        if (type != null) {
+            sb.append(type.toString(level + 1));
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

@@ -55,7 +55,26 @@ public class PrimaryExpressionNode extends ExpressionNode {
     }
 
     @Override
-    public String toString() {
-        return "PrimaryExpressionNode at line " + line;
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+
+        sb.append(indent).append("PrimaryExpressionNode:\n");
+        sb.append(base.toString(level + 1)).append("\n");
+
+        for (PostfixOpNode op : postfixOps) {
+            sb.append(op.toString(level + 1)).append("\n");
+        }
+
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

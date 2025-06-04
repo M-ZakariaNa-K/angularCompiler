@@ -1,0 +1,22 @@
+
+ class Animal {
+
+}
+
+
+const Animalname:string = "dawd";
+
+interface Drawble {
+    print:void
+}
+class cat extends Animal implements Drawble {
+    animalName:string;
+
+    print (): void {
+        return animalName;
+    }
+}
+
+export default cat;
+
+export {Animal,Drawble};

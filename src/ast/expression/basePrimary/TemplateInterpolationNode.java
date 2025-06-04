@@ -40,7 +40,17 @@ public class TemplateInterpolationNode extends BasePrimaryNode {
     }
 
     @Override
-    public String toString() {
-        return "TemplateInterpolationNode at line " + line;
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("TemplateInterpolationNode\n");
+        sb.append(expression.toString(level + 1));
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

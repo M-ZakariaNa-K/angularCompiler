@@ -30,9 +30,20 @@ public class StyleUrlsPropertyNode extends ComponentPropertyNode {
     public List<ASTNode> getChildren() {
         return Collections.emptyList();
     }
-
     @Override
-    public String toString() {
-        return "StyleUrls(" + urls + ")";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("StyleUrlsPropertyNode at line ").append(getLine()).append("\n");
+        for (String url : urls) {
+            sb.append(indent).append("  ").append(url).append("\n");
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

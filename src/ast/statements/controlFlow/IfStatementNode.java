@@ -45,4 +45,32 @@ public class IfStatementNode extends StatementNode {
     public List<ASTNode> getChildren() {
         return Arrays.asList(condition, body);
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("IfStatementNode\n");
+
+        sb.append(indent).append("  Condition:\n");
+        sb.append(condition.toString(level + 2));
+
+        sb.append(indent).append("  Body:\n");
+        if (body instanceof StatementNode) {
+            sb.append(((StatementNode) body).toString(level + 2));
+        } else {
+            sb.append(indent).append("    ").append(body.toString()).append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

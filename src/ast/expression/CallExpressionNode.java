@@ -3,6 +3,7 @@ package ast.expression;
 import ast.ASTNode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,9 +42,34 @@ public class CallExpressionNode extends ExpressionNode {
     }
 
     @Override
-    public List<ASTNode> getChildren() {
-        return arguments.stream()
-                .map(e -> (ASTNode) e)
-                .collect(Collectors.toList());
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder("CallExpressionNode:\n");
+        String indent = getIndent(level);
+
+        sb.append(indent).append("  Callee:\n");
+        sb.append(callee.toString(level + 2)).append("\n");
+
+        if (!arguments.isEmpty()) {
+            sb.append(indent).append("  Arguments:\n");
+            for (ExpressionNode arg : arguments) {
+                sb.append(arg.toString(level + 2)).append("\n");
+            }
+        }
+
+        return sb.toString();
     }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return Collections.emptyList();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

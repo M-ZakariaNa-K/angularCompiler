@@ -29,8 +29,18 @@ public class TemplateUrlPropertyNode extends ComponentPropertyNode {
     }
 
     @Override
-    public String toString() {
-        return "TemplateUrl(" + value + ")";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("TemplateUrlPropertyNode at line ").append(getLine()).append("\n");
+        sb.append(indent).append("  ").append("\"").append(value).append("\"").append("\n");
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }
 

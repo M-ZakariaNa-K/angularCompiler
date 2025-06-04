@@ -39,15 +39,21 @@ public class ArrayTypeNode extends TypeNode {
     }
 
     @Override
-    public String toString() {
-        return "ArrayTypeNode{" +
-                "elementType=" + elementType +
-                ", line=" + line +
-                '}';
-    }
-
-    @Override
     public String getStringType() {
         return elementType.getStringType() + "[]";
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ArrayTypeNode\n");
+        sb.append(elementType.toString(level + 1));
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 }

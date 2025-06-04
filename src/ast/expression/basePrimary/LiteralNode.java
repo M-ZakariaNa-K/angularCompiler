@@ -45,7 +45,19 @@ public class LiteralNode extends BasePrimaryNode {
     }
 
     @Override
-    public String toString() {
-        return "LiteralNode(" + value + ") at line " + line;
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getIndent(level)).append("LiteralNode: ").append(generateCode()).append("\n");
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        StringBuilder indent = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            indent.append("  ");
+        }
+        return indent.toString();
+    }
+
+
 }

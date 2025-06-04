@@ -41,8 +41,28 @@ public class FunctionCallNode extends PostfixOpNode {
         return line;
     }
 
+
     @Override
     public List<ASTNode> getChildren() {
-        return Collections.unmodifiableList(arguments);
+        return Collections.emptyList();
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("FunctionCallNode\n");
+        if (!arguments.isEmpty()) {
+            sb.append(indent).append("  Arguments:\n");
+            for (ExpressionNode arg : arguments) {
+                sb.append(arg.toString(level + 2));
+            }
+        }
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 }

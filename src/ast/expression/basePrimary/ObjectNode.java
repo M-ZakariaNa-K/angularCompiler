@@ -2,6 +2,7 @@ package ast.expression.basePrimary;
 
 import ast.ASTNode;
 import ast.expression.ExpressionNode;
+import javafx.util.Pair;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -43,9 +44,21 @@ public class ObjectNode extends BasePrimaryNode {
     public List<ASTNode> getChildren() {
         return Collections.unmodifiableList(entries.values().stream().collect(Collectors.toList()));
     }
-
     @Override
-    public String toString() {
-        return "ObjectNode at line " + line;
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ObjectNode\n");
+        for (Map.Entry<String, ExpressionNode> entry : entries.entrySet()) {
+            sb.append(indent).append("  ").append("Key: ").append(entry.getKey()).append("\n");
+            sb.append(entry.getValue().toString(level + 2));
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

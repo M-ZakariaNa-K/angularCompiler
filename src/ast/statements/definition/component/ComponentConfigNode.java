@@ -39,9 +39,20 @@ public class ComponentConfigNode implements ASTNode {
     public List<ASTNode> getChildren() {
         return Collections.singletonList(properties);
     }
-
     @Override
-    public String toString() {
-        return "ComponentConfig";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ComponentConfigNode at line ").append(line).append("\n");
+        if (properties != null) {
+            sb.append(properties.toString(level + 1));
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

@@ -36,7 +36,7 @@ public class DotAssignmentNode extends AssignmentToNode {
 
     @Override
     public String toString() {
-        return "DotAssignmentNode(identifier=this." + identifier + ", line=" + line + ")";
+        return "DotAssignmentNode(" + identifier + ")";
     }
 
 
@@ -44,4 +44,19 @@ public class DotAssignmentNode extends AssignmentToNode {
     public List<ASTNode> getChildren() {
         return Collections.emptyList();
     }
+
+    @Override
+    public String toString(int level) {
+        String indent = getIndent(level);
+        return indent + "DotAssignmentNode: " + identifier + "\n";
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

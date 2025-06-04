@@ -15,7 +15,7 @@ public interface ASTNode {
     /** For error reporting or tracing */
     int getLine();
 
-    String toString();
+    String toString(int level);
     /**
      * For symbol table construction: collect children nodes
      */

@@ -57,11 +57,28 @@ public class ArrowFunctionDeclarationNode extends FunctionDeclarationNode {
         return Collections.singletonList(arrowFunction);
     }
 
-    @Override
-    public String toString() {
-        return "ArrowFunctionDeclarationNode(" + identifier +
-                (arrowFunction != null ? ": " + arrowFunction.toString() : "") +
-                ") at line " + line;
+
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ArrowFunctionDeclarationNode: ").append(identifier);
+        if (declarationKind != null) {
+            sb.append(" [").append(declarationKind.name()).append("]");
+        }
+        sb.append(" at line ").append(line).append("\n");
+        if (arrowFunction != null) {
+            sb.append(arrowFunction.toString(level + 1));
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 
 }

@@ -13,6 +13,10 @@ public class SelectorPropertyNode extends ComponentPropertyNode {
         this.value = value;
     }
 
+    public String getValue() {
+        return value;
+    }
+
     @Override
     public String getSymbolName() {
         return "SelectorProperty";
@@ -29,8 +33,22 @@ public class SelectorPropertyNode extends ComponentPropertyNode {
     }
 
     @Override
-    public String toString() {
-        return "Selector(" + value + ")";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent)
+                .append("SelectorPropertyNode: \"")
+                .append(value)
+                .append("\" at line ")
+                .append(getLine())
+                .append("\n");
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }
 

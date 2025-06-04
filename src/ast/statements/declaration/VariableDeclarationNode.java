@@ -82,4 +82,30 @@ public class VariableDeclarationNode extends StatementNode {
     public VariableDeclarationKind getDeclarationKind() {
         return declarationKind;
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent)
+                .append("VariableDeclarationNode: ").append(identifier);
+
+        if (declarationKind != null) {
+            sb.append(" [").append(declarationKind.toString().toLowerCase()).append("]");
+        }
+
+        sb.append(" : ").append(type != null ? type.toString() : "unknown").append(" at line ").append(line).append("\n");
+
+        if (expression != null) {
+            sb.append(indent).append("  Initializer:\n");
+            sb.append(expression.toString(level + 2));
+        }
+
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 }

@@ -41,4 +41,26 @@ public class IndexedAccessNode extends ExpressionNode {
     public List<ASTNode> getChildren() {
         return Arrays.asList(target, index);
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder("IndexedAccessNode:\n");
+        String indent = getIndent(level + 1);
+        sb.append(indent).append("Target:\n")
+                .append(target.toString(level + 2)).append("\n");
+        sb.append(indent).append("Index:\n")
+                .append(index.toString(level + 2)).append("\n");
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
+
+
 }

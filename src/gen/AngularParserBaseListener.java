@@ -233,30 +233,6 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLocalVarDecl(AngularParser.LocalVarDeclContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLocalVarDecl(AngularParser.LocalVarDeclContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLocalConstDecl(AngularParser.LocalConstDeclContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLocalConstDecl(AngularParser.LocalConstDeclContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterExpressionStatement(AngularParser.ExpressionStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -425,30 +401,6 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLocalVariableDeclaration(AngularParser.LocalVariableDeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLocalVariableDeclaration(AngularParser.LocalVariableDeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLocalConstantDeclaration(AngularParser.LocalConstantDeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLocalConstantDeclaration(AngularParser.LocalConstantDeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterAssignmentStatement(AngularParser.AssignmentStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -461,37 +413,37 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIdNotation(AngularParser.IdNotationContext ctx) { }
+	@Override public void enterIdAssignment(AngularParser.IdAssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIdNotation(AngularParser.IdNotationContext ctx) { }
+	@Override public void exitIdAssignment(AngularParser.IdAssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrNotaion(AngularParser.ArrNotaionContext ctx) { }
+	@Override public void enterArrAssignment(AngularParser.ArrAssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrNotaion(AngularParser.ArrNotaionContext ctx) { }
+	@Override public void exitArrAssignment(AngularParser.ArrAssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDotNotation(AngularParser.DotNotationContext ctx) { }
+	@Override public void enterDotAssignment(AngularParser.DotAssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDotNotation(AngularParser.DotNotationContext ctx) { }
+	@Override public void exitDotAssignment(AngularParser.DotAssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -725,49 +677,73 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSProp(AngularParser.SPropContext ctx) { }
+	@Override public void enterComponentProperties(AngularParser.ComponentPropertiesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSProp(AngularParser.SPropContext ctx) { }
+	@Override public void exitComponentProperties(AngularParser.ComponentPropertiesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTUrlProp(AngularParser.TUrlPropContext ctx) { }
+	@Override public void enterSelectorProp(AngularParser.SelectorPropContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTUrlProp(AngularParser.TUrlPropContext ctx) { }
+	@Override public void exitSelectorProp(AngularParser.SelectorPropContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSUrlProp(AngularParser.SUrlPropContext ctx) { }
+	@Override public void enterTemplateUrlProp(AngularParser.TemplateUrlPropContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSUrlProp(AngularParser.SUrlPropContext ctx) { }
+	@Override public void exitTemplateUrlProp(AngularParser.TemplateUrlPropContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTProp(AngularParser.TPropContext ctx) { }
+	@Override public void enterStylesUrlProp(AngularParser.StylesUrlPropContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTProp(AngularParser.TPropContext ctx) { }
+	@Override public void exitStylesUrlProp(AngularParser.StylesUrlPropContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTemolateProp(AngularParser.TemolatePropContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTemolateProp(AngularParser.TemolatePropContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStyelsProp(AngularParser.StyelsPropContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStyelsProp(AngularParser.StyelsPropContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

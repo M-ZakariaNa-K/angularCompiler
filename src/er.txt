@@ -1,0 +1,91 @@
+// import statements
+import { HttpClient } from 'angular/http';
+import 'zone.js';
+
+// export statements
+export default MyComponent;
+export { MyComponent, MyService };
+
+// constant declaration
+const API_URL: string = "https://api.example.com";
+
+API_URL = true;
+
+// variable declaration
+let counter: number = 0;
+
+// interface definition
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+enum ColorsEnum {
+    GREEN = "#00aa12"
+};
+// class definition
+class MyService {
+  private data: string;
+
+  constructor() {
+    this.data = "Service initialized";
+  }
+
+  getData(): string {
+    return this.data;
+  }
+}
+
+// component definition
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.html'
+})
+class MyComponent implements OnInit {
+  public user: User;
+  private http: HttpClient;
+  protected initialized: boolean = false;
+
+  constructor(http: HttpClient) {
+    this.http = http;
+  }
+
+ 
+
+  loadUser(): void {
+    this.http(
+		API_URL + '/user/1',
+		(data:data) => {
+      			this.user = data;
+      			this.initialized = true;
+ 		}
+	);
+  }
+
+ ngOnInit(): void {
+    if (!this.initialized) {
+      this.loadUser();
+    }
+  }
+
+  // expression statement
+  updateCounter(): void {
+    counter = counter + 1;
+  }
+
+  // return statement
+  getCounter(): number {
+    return counter;
+  }
+}
+
+// function declaration
+function logMessage(msg: string): void {
+  
+}
+
+// arrow function assignment
+const multiply = (a: number, b: number): number => a * b;
+
+// assignment statement
+counter = multiply(2, 5);

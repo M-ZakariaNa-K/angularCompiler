@@ -74,8 +74,23 @@ public class ClassVariableDeclarationNode extends DeclarationNode {
         return Collections.unmodifiableList(children);
     }
 
-    @Override
-    public String toString() {
-        return "ClassVariableDeclarationNode(" + identifier + ") at line " + line;
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ClassVariableDeclarationNode: ").append(identifier);
+        if (accessModifier != null) {
+            sb.append(" [").append(accessModifier).append("]");
+        }
+        sb.append(" : ").append(type != null ? type.toString() : "unknown").append(" at line ").append(line).append("\n");
+        if (initializer != null) {
+            sb.append(indent).append("  Initializer:\n");
+            sb.append(initializer.toString(level + 2));
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 }

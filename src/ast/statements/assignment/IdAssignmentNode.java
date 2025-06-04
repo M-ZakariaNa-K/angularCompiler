@@ -35,7 +35,7 @@ public class IdAssignmentNode extends AssignmentToNode {
     }
     @Override
     public String toString() {
-        return "IdAssignmentNode(identifier=" + identifier + ", line=" + line + ")";
+        return "IdAssignment(" + identifier + ")";
     }
 
 
@@ -43,4 +43,19 @@ public class IdAssignmentNode extends AssignmentToNode {
     public List<ASTNode> getChildren() {
         return Collections.emptyList();
     }
+
+    @Override
+    public String toString(int level) {
+        String indent = getIndent(level);
+        return indent + "IdAssignmentNode: " + identifier + "\n";
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

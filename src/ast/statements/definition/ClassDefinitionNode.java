@@ -13,11 +13,11 @@ public class ClassDefinitionNode extends StatementNode {
 
     private final String name;
     private final ExtendsStatementNode extendsStatement; // nullable
-    private final List<ImplementsStatementNode> implementsStatements; // list of implements
+    private final ImplementsStatementNode implementsStatements; // list of implements
     private final ClassBodyNode classBody;
     private final int line;
 
-    public ClassDefinitionNode(String name, ExtendsStatementNode extendsStatement, List<ImplementsStatementNode> implementsStatements, ClassBodyNode classBody, int line) {
+    public ClassDefinitionNode(String name, ExtendsStatementNode extendsStatement, ImplementsStatementNode implementsStatements, ClassBodyNode classBody, int line) {
         this.name = name;
         this.extendsStatement = extendsStatement;
         this.implementsStatements = implementsStatements;
@@ -33,7 +33,7 @@ public class ClassDefinitionNode extends StatementNode {
         return extendsStatement;
     }
 
-    public List<ImplementsStatementNode> getImplementsStatements() {
+    public ImplementsStatementNode getImplementsStatements() {
         return implementsStatements;
     }
 
@@ -62,8 +62,35 @@ public class ClassDefinitionNode extends StatementNode {
         if (extendsStatement != null) {
             children.add(extendsStatement);
         }
-        children.addAll(implementsStatements);
+        children.add(implementsStatements);
         children.add(classBody);
         return Collections.unmodifiableList(children);
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ClassDefinitionNode: ").append(name)
+                .append(" at line ").append(line).append("\n");
+
+        if (extendsStatement != null) {
+            sb.append(extendsStatement.toString(level + 1));
+        }
+
+        if (implementsStatements != null) {
+            sb.append(implementsStatements.toString(level + 1));
+        }
+
+        if (classBody != null) {
+            sb.append(classBody.toString(level + 1));
+        }
+
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 }

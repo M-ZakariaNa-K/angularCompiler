@@ -1,6 +1,8 @@
 package ast.statements.definition;
 
 import ast.ASTNode;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -42,7 +44,19 @@ public class InterfaceBodyNode implements ASTNode {
     }
 
     @Override
-    public String toString() {
-        return "InterfaceBody(" + members.size() + " members)";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("InterfaceBody at line ").append(line).append(":\n");
+        for (InterfaceMemberNode member : members) {
+            sb.append(member.toString(level + 1));
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

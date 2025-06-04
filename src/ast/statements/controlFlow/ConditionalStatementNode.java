@@ -58,4 +58,32 @@ public class ConditionalStatementNode extends StatementNode {
         }
         return Collections.unmodifiableList(children);
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ConditionalStatementNode\n");
+
+        sb.append(ifBranch.toString(level + 1));
+
+        for (IfStatementNode elseIf : elseIfBranches) {
+            sb.append(elseIf.toString(level + 1));
+        }
+
+        if (elseBranch != null) {
+            sb.append(elseBranch.toString(level + 1));
+        }
+
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

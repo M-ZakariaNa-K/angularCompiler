@@ -48,7 +48,22 @@ public class EnumValuesNode implements ASTNode {
     }
 
     @Override
-    public String toString() {
-        return "EnumValues(" + values.size() + " values)";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("EnumValuesNode:\n");
+        for (EnumValueNode value : values) {
+            sb.append(value.toString(level + 1));
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

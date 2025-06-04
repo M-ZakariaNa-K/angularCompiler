@@ -39,8 +39,24 @@ public class NamedExportNode extends ExportStatementNode {
     }
 
     @Override
-    public String toString() {
-        return "NamedExportNode(identifiers={" + String.join(", ", identifiers) + "}, line=" + line + ")";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("NamedExportNode\n");
+
+        if (!identifiers.isEmpty()) {
+            sb.append(indent).append("  Identifiers:\n");
+            for (String id : identifiers) {
+                sb.append(indent).append("    ").append(id).append("\n");
+            }
+        }
+
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 
 }

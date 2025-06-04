@@ -44,29 +44,32 @@ public class AssignmentStatementNode extends StatementNode {
     }
 
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("AssignmentStatementNode(line=");
-        sb.append(line).append(", targets=[");
-
-        for (int i = 0; i < targets.size(); i++) {
-            sb.append(targets.get(i).toString());
-            if (i < targets.size() - 1) {
-                sb.append(".");
-            }
-        }
-
-        sb.append("], expression=");
-        sb.append(expression);
-        sb.append(")");
-
-        return sb.toString();
-    }
-
-
-    @Override
     public List<ASTNode> getChildren() {
         List<ASTNode> children = new ArrayList<>(targets);
         children.add(expression);
         return Collections.unmodifiableList(children);
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+
+        sb.append(indent).append("AssignmentStatementNode\n");
+        for (AssignmentToNode target : targets) {
+            sb.append(target.toString(level + 1));
+        }
+        sb.append(expression.toString(level + 1));
+
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

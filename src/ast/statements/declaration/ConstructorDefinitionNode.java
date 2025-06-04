@@ -35,13 +35,15 @@ public class ConstructorDefinitionNode extends FunctionDeclarationNode {
 
     @Override
     public String generateCode() {
-       return "constructor " + parameters.toString();
+        return "";
     }
+
 
     @Override
     public int getLine() {
         return line;
     }
+
 
     @Override
     public List<ASTNode> getChildren() {
@@ -57,9 +59,25 @@ public class ConstructorDefinitionNode extends FunctionDeclarationNode {
     }
 
 
-
     @Override
-    public String toString() {
-        return "ConstructorDefinitionNode at line " + line;
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ConstructorDefinitionNode at line ").append(line).append("\n");
+        if (parameters != null) {
+            sb.append(indent).append("  Parameters:\n");
+            sb.append(parameters.toString(level + 2));
+        }
+        if (body != null) {
+            sb.append(indent).append("  Body:\n");
+            sb.append(body.toString(level + 2));
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

@@ -39,7 +39,17 @@ public class ExtendsStatementNode implements ASTNode {
     }
 
     @Override
-    public String toString() {
-        return "ExtendsStatementNode(" + identifier + ") at line " + line;
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ExtendsStatementNode\n");
+        sb.append(indent).append("  ").append(identifier).append("\n");
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

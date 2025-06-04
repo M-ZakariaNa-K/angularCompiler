@@ -1,0 +1,38 @@
+import {Component,onInit}  from "angular/core";
+import fetchApi from "../../api/fetchApi";
+
+enum ROLE  {
+    ADMIN="admin",
+    EMPLOYEE="employee"
+}
+
+interface user {
+    name:string;
+    role:ROLE
+}
+
+const api_url = (id:number):string => "localhost:3000/api/user/getname/" + id
+
+const getName = (url:string):unknwon => {
+    try {
+        const response:response  = fetchApi(url);
+        return response;
+    } catch (ex:Expeption) {
+        return null;
+    }
+}
+class employee implements user {
+    private name:string;
+    private role:ROLE = "employee";
+    id:number;
+}
+
+@Component({
+    selector: "employeeCard"
+}) class userCard {
+    name:string;
+    ngOnInit():any {
+        this.name = getName(api_url);
+    }
+
+}

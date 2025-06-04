@@ -75,8 +75,31 @@ public class ArrowFunctionNode extends ExpressionNode {
     }
 
     @Override
-    public String toString() {
-        return "(" + parameters.stream().map(Object::toString).collect(Collectors.joining(", ")) + ") => { ... }";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder("ArrowFunctionNode:\n");
+        String indent = getIndent(level);
+
+        for (ParameterNode param : parameters) {
+            sb.append(indent).append("  ").append(param.toString(level + 1)).append("\n");
+        }
+
+        if (returnType != null) {
+            sb.append(indent).append("  ReturnType: ").append(returnType.toString(level + 1)).append("\n");
+        }
+
+        sb.append(indent).append("  Body:\n");
+        sb.append(body.toString(level + 2)).append("\n");
+
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 
 }

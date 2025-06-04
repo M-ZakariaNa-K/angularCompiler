@@ -39,7 +39,19 @@ public class ImplementsStatementNode implements ASTNode {
     }
 
     @Override
-    public String toString() {
-        return "ImplementsStatementNode(" + String.join(", ", interfaces) + ") at line " + line;
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ImplementsStatementNode\n");
+        for (String iface : interfaces) {
+            sb.append(indent).append("  ").append(iface).append("\n");
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

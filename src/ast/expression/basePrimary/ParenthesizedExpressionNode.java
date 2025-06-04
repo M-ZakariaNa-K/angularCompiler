@@ -38,4 +38,19 @@ public class ParenthesizedExpressionNode extends BasePrimaryNode {
     public String generateCode() {
         return "(" + expression.generateCode() + ")";
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ParenthesizedExpressionNode\n");
+        sb.append(expression.toString(level + 1));
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

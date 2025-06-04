@@ -54,4 +54,26 @@ public class AppliedPipeExpressionNode extends ExpressionNode {
         all.addAll(arguments);
         return all;
     }
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("PipeExpressionNode\n");
+        sb.append(indent).append("  Pipe Name: ").append(pipeName).append("\n");
+        sb.append(indent).append("  Input:\n");
+        sb.append(input.toString(level + 2));
+        if (!arguments.isEmpty()) {
+            sb.append(indent).append("  Arguments:\n");
+            for (ExpressionNode arg : arguments) {
+                sb.append(arg.toString(level + 2));
+            }
+        }
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        return String.join("", java.util.Collections.nCopies(level, "  "));
+    }
+
+
 }

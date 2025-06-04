@@ -72,4 +72,37 @@ public class TryCatchStatementNode extends StatementNode {
         }
         return Collections.unmodifiableList(children);
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("TryCatchStatementNode\n");
+
+        sb.append(indent).append("  TryBlock:\n");
+        sb.append(tryBlock.toString(level + 2));
+
+        sb.append(indent).append("  CatchBlock:\n");
+        sb.append(catchBlock.toString(level + 2));
+
+        if (finallyBlock != null) {
+            sb.append(indent).append("  FinallyBlock:\n");
+            sb.append(finallyBlock.toString(level + 2));
+        }
+
+        sb.append(indent).append("  ExceptionIdentifier: ").append(exceptionIdentifier).append("\n");
+        sb.append(indent).append("  ExceptionType:\n");
+        sb.append(exceptionType.toString(level + 2));
+
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

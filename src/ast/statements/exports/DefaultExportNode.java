@@ -32,13 +32,21 @@ public class DefaultExportNode extends ExportStatementNode {
     public int getLine() {
         return line;
     }
-    @Override
-    public String toString() {
-        return "DefaultExportNode(identifier=" + identifier + ", line=" + line + ")";
-    }
 
     @Override
     public List<ASTNode> getChildren() {
         return Collections.emptyList();
     }
+
+    @Override
+    public String toString(int level) {
+        String indent = getIndent(level);
+        return indent + "DefaultExport " + identifier + "\n";
+    }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

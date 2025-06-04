@@ -70,7 +70,30 @@ public class classVariableDeclarationNode implements ASTNode {
     }
 
     @Override
-    public String toString() {
-        return "classVariableDeclarationNode(" + identifier + ") at line " + line;
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent)
+                .append("ClassVariableDeclaration: ")
+                .append(identifier)
+                .append(" at line ").append(line).append("\n");
+
+        if (accessModifier != null) {
+            sb.append(accessModifier.toString(level + 1));
+        }
+        if (type != null) {
+            sb.append(type.toString(level + 1));
+        }
+        if (expression != null) {
+            sb.append(expression.toString(level + 1));
+        }
+
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

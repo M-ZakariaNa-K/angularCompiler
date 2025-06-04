@@ -3,6 +3,7 @@ package ast.statements.definition;
 import ast.ASTNode;
 import ast.statements.StatementNode;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -41,7 +42,17 @@ public class InterfaceDefinitionNode extends StatementNode {
     }
 
     @Override
-    public String toString() {
-        return "InterfaceDefinition(" + name + ")";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("InterfaceDefinition ").append(name)
+                .append(" at line ").append(line).append(":\n");
+        sb.append(members.toString(level + 1));
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 }

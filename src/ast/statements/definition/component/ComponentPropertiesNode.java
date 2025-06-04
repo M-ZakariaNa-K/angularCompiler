@@ -48,7 +48,19 @@ public class ComponentPropertiesNode implements ASTNode {
     }
 
     @Override
-    public String toString() {
-        return "ComponentProperties(" + properties.size() + ")";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ComponentPropertiesNode at line ").append(line).append("\n");
+        for (ComponentPropertyNode property : properties) {
+            sb.append(property.toString(level + 1));
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

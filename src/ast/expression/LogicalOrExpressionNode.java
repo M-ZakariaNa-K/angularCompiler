@@ -34,4 +34,23 @@ public class LogicalOrExpressionNode extends ExpressionNode {
     public int getLine() {
         return operands.get(0).getLine();
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder("LogicalOrExpressionNode:\n");
+        String indent = getIndent(level + 1);
+        for (ExpressionNode operand : operands) {
+            sb.append(indent).append(operand.toString(level + 1)).append("\n");
+        }
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

@@ -41,4 +41,26 @@ public class MultiplicativeExpressionNode extends ExpressionNode {
     public int getLine() {
         return operands.get(0).getLine();
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder("MultiplicativeExpressionNode:\n");
+        String indent = getIndent(level + 1);
+        for (int i = 0; i < operands.size(); i++) {
+            sb.append(indent).append(operands.get(i).toString(level + 1)).append("\n");
+            if (i < operators.size()) {
+                sb.append(indent).append("  ").append(operators.get(i)).append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

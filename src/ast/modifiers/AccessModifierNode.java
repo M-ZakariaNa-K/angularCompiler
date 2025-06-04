@@ -44,7 +44,18 @@ public class AccessModifierNode implements ASTNode {
     }
 
     @Override
-    public String toString() {
-        return generateCode();
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent)
+                .append("AccessModifierNode: ")
+                .append(modifier.name().toLowerCase())
+                .append("\n");
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 }

@@ -44,15 +44,6 @@ public class ConstantDeclarationNode extends StatementNode {
         return children;
     }
 
-    @Override
-    public String toString() {
-        return "ConstantDeclarationNode(" +
-                "const " + identifier +
-                (type != null ? ": " + type.toString() : "") +
-                " = " + (expression != null ? expression.toString() : "null") +
-                ") at line " + line;
-    }
-
 
     public String getIdentifier() {
         return identifier;
@@ -65,4 +56,25 @@ public class ConstantDeclarationNode extends StatementNode {
     public ExpressionNode getExpression() {
         return expression;
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ConstantDeclarationNode: const ").append(identifier);
+        if (type != null) {
+            sb.append(": ").append(type.toString());
+        }
+        sb.append(" at line ").append(line).append("\n");
+        if (expression != null) {
+            sb.append(indent).append("  Initializer:\n");
+            sb.append(expression.toString(level + 2));
+        }
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        return String.join("", java.util.Collections.nCopies(level, "  "));
+    }
+
 }

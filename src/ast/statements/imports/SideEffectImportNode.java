@@ -39,8 +39,17 @@ public class SideEffectImportNode extends ImportStatementNode{
     }
 
     @Override
-    public String toString() {
-        return "sideEffectImport(module path=" + modulePath + ", line=" + line + ")";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("SideEffectImportNode\n");
+        sb.append(indent).append("  ").append(modulePath).append("\n");
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 
 }

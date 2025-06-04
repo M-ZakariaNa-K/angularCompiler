@@ -45,7 +45,20 @@ public class NamedImportNode extends ImportStatementNode{
     }
 
     @Override
-    public String toString() {
-        return "NamedImportNode(identifier={" + String.join(", ", identifiers) + "}, module path=" + modulePath +   ", line=" + line + ")";
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("NamedImportNode\n");
+        for (String id : identifiers) {
+            sb.append(indent).append("  ").append(id).append("\n");
+        }
+        sb.append(indent).append("  ").append(modulePath).append("\n");
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

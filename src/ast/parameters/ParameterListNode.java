@@ -42,7 +42,18 @@ public class ParameterListNode implements ASTNode {
     }
 
     @Override
-    public String toString() {
-        return "ParameterListNode with " + parameters.size() + " parameter(s) at line " + line;
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ParameterListNode\n");
+        for (ExpressionParameterNode param : parameters) {
+            sb.append(param.toString(level + 1));
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 }

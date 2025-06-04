@@ -24,7 +24,10 @@ public class ClassBodyNode implements ASTNode {
     }
 
     public List<ASTNode> getClassMembers() {
-        return classMembers;
+        if (classMembers != null){
+            return classMembers;
+        }
+        return Collections.emptyList();
     }
 
     @Override
@@ -49,4 +52,32 @@ public class ClassBodyNode implements ASTNode {
         all.addAll(classMembers);
         return Collections.unmodifiableList(all);
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("ClassBodyNod ").append("\n");
+
+        if (!decorators.isEmpty()) {
+            sb.append(indent).append("  Decorators:\n");
+            for (DecoratorNode decorator : decorators) {
+                sb.append(decorator.toString(level + 2));
+            }
+        }
+
+        if (!classMembers.isEmpty()) {
+            sb.append(indent).append("  Class Members:\n");
+            for (ASTNode member : classMembers) {
+                sb.append(member.toString(level + 2));
+            }
+        }
+
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
 }

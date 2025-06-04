@@ -36,4 +36,21 @@ public class ExpressionStatementNode extends StatementNode {
     public List<ASTNode> getChildren() {
         return Arrays.asList(expression);
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder("ExpressionStatementNode:\n");
+        String indent = getIndent(level + 1);
+        sb.append(indent).append(expression.toString(level + 1)).append("\n");
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

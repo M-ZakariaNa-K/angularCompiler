@@ -48,4 +48,22 @@ public class EnumDefinitionNode extends StatementNode {
         return Collections.singletonList(values);
     }
 
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+        sb.append(indent).append("EnumDefinitionNode: ").append(name).append("\n");
+        sb.append(values.toString(level + 1));
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
+
 }

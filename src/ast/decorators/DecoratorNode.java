@@ -35,8 +35,8 @@ public class DecoratorNode implements ASTNode {
     }
 
     @Override
-    public String toString() {
-        return "DecoratorNode(@" + identifier + ") at line " + line;
+    public String toString(int level) {
+        return "Decorator:@" + identifier;
     }
 
     public String getIdentifier() {

@@ -72,21 +72,32 @@ public class MethodDefinitionNode extends DeclarationNode {
         return children;
     }
 
-
     @Override
-    public String toString() {
+    public String toString(int level) {
         StringBuilder sb = new StringBuilder();
-        sb.append("MethodDefinitionNode(")
-                .append(methodName)
-                .append("(");
-
-        sb.append(parameters.toString());
-        sb.append(")");
+        String indent = getIndent(level);
+        sb.append(indent).append("MethodDefinitionNode: ").append(methodName);
         if (returnType != null) {
-            sb.append(": ").append(returnType.toString());
+            sb.append(" : ").append(returnType.toString());
+        }
+        sb.append(" at line ").append(line).append("\n");
+
+        if (parameters != null) {
+            sb.append(indent).append("  Parameters:\n");
+            sb.append(parameters.toString(level + 2));
         }
 
-        sb.append(") at line ").append(line);
+        if (block != null) {
+            sb.append(indent).append("  Body:\n");
+            sb.append(block.toString(level + 2));
+        }
+
         return sb.toString();
     }
+
+    private String getIndent(int level) {
+        return String.join("", Collections.nCopies(level, "  "));
+    }
+
+
 }

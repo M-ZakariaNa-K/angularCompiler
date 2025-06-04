@@ -42,4 +42,24 @@ public class PropertyAccessNode extends ExpressionNode {
     public List<ASTNode> getChildren() {
         return Collections.singletonList(target);
     }
+
+    @Override
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        String indent = getIndent(level);
+
+        sb.append(indent).append("PropertyAccessNode: .").append(property).append("\n");
+        sb.append(target.toString(level + 1)).append("\n");
+
+        return sb.toString();
+    }
+
+    private String getIndent(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+        return sb.toString();
+    }
+
 }

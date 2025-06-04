@@ -2,6 +2,7 @@ package ast.expression.basePrimary;
 
 import ast.ASTNode;
 import ast.expression.ExpressionNode;
+import ast.statements.assignment.AssignmentToNode;
 
 import java.util.Collections;
 import java.util.List;
@@ -48,7 +49,21 @@ public class ArrayNode extends BasePrimaryNode {
     }
 
     @Override
-    public String toString() {
-        return "ArrayNode at line " + line;
+    public String toString(int level) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getIndent(level)).append("ArrayNode\n");
+        for (ExpressionNode element : elements) {
+            sb.append(element.toString(level + 1));
+        }
+        return sb.toString();
     }
+
+    private String getIndent(int level) {
+        StringBuilder indent = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            indent.append("  ");
+        }
+        return indent.toString();
+    }
+
 }
