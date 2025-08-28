@@ -1,10 +1,18 @@
 import {Component,onInit}  from "angular/core";
 import fetchApi from "../../api/fetchApi";
+import "my/module";
 
 enum ROLE  {
     ADMIN="admin",
     EMPLOYEE="employee"
 }
+
+const name1:string = "dwawad";
+var name2:string = "dwawad";
+let name3:string = "dwawad";
+
+let counter:number = 5;
+counter + 1;
 
 interface user {
     name:string;
@@ -21,6 +29,7 @@ const getName = (url:string):unknwon => {
         return null;
     }
 }
+
 class employee implements user {
     private name:string;
     private role:ROLE = "employee";
@@ -28,11 +37,16 @@ class employee implements user {
 }
 
 @Component({
-    selector: "employeeCard"
-}) class userCard {
-    name:string;
-    ngOnInit():any {
+    selector: "employeeCard",
+    template: "<div>{{name}}</div>",
+    templateUrl: "./employee.html",
+    styles: ["h1 { color: red; }", "p { font-size: 14px; }"],
+    styleUrls: ["./employee.css", "./shared.css"]
+})
+class userCard {
+    name: string;
+
+    ngOnInit(): any {
         this.name = getName(api_url);
     }
-
 }

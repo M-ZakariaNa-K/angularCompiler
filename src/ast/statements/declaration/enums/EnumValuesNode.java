@@ -28,14 +28,27 @@ public class EnumValuesNode implements ASTNode {
     @Override
     public String generateCode() {
         StringBuilder builder = new StringBuilder();
+        int autoNumber = 0;
         for (EnumValueNode value : values) {
-            builder.append(value.generateCode()).append(", ");
-        }
-        if (!values.isEmpty()) {
-            builder.setLength(builder.length() - 2); // Remove trailing comma and space
+            if (value.getValue() != null) {
+                builder.append(value.generateCode());
+                // update autoNumber if value is numeric
+                try {
+                    autoNumber = Integer.parseInt(value.getValue().generateCode()) + 1;
+                } catch (NumberFormatException e) {
+                    autoNumber++;
+                }
+            } else {
+                builder.append("\"").append(value.getName()).append("\": ").append(autoNumber++);
+            }
+            if (values.indexOf(value) < values.size() - 1) {
+                builder.append(", ");
+            }
         }
         return builder.toString();
     }
+
+
 
     @Override
     public int getLine() {

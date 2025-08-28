@@ -50,15 +50,16 @@ public class ClassVariableDeclarationNode extends DeclarationNode {
     public String generateCode() {
         StringBuilder sb = new StringBuilder();
         if (accessModifier != null) {
-            sb.append(accessModifier.toString().toLowerCase()).append(" ");
+            sb.append(accessModifier.generateCode()); // '#' for private, comment otherwise
         }
-        sb.append(identifier).append(": ").append(type.generateCode());
+        sb.append(identifier);
         if (initializer != null) {
             sb.append(" = ").append(initializer.generateCode());
         }
         sb.append(";");
         return sb.toString();
     }
+
 
     @Override
     public int getLine() {

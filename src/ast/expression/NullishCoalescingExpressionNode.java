@@ -37,7 +37,8 @@ public class NullishCoalescingExpressionNode extends ExpressionNode {
 
     @Override
     public String generateCode() {
-        return "";
+        if (right == null) return left.generateCode();
+        return left.generateCode() + " ?? " + right.generateCode();
     }
 
     @Override

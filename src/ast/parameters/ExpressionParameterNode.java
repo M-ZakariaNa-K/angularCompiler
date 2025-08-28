@@ -32,7 +32,8 @@ public class ExpressionParameterNode implements ASTNode {
 
     @Override
     public String generateCode() {
-        return identifier + ": " + type.generateCode();
+        // JS: just the identifier
+        return identifier;
     }
 
     @Override

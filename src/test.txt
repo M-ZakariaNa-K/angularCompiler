@@ -6,6 +6,9 @@
 
 const Animalname:string = "dawd";
 
+let counter:number = 5;
+counter = counter + 1;
+
 interface Drawble {
     print:void
 }

@@ -20,6 +20,21 @@ public class ComponentConfigNode implements ASTNode {
         return properties;
     }
 
+    /**
+     * Returns a list of property JS key/value strings for easy code generation
+     */
+    public List<String> getPropertyAssignments() {
+        if (properties == null || properties.getProperties() == null) return Collections.emptyList();
+
+        List<String> assignments = new ArrayList<>();
+        for (ComponentPropertyNode prop : properties.getProperties()) {
+            String key = prop.getKey(); // Each ComponentPropertyNode must have getKey() and getValue()
+            String value = prop.getValue();
+            assignments.add(key + " = " + value);
+        }
+        return assignments;
+    }
+
     @Override
     public String getSymbolName() {
         return "ComponentConfig";
@@ -27,7 +42,17 @@ public class ComponentConfigNode implements ASTNode {
 
     @Override
     public String generateCode() {
-        return properties.generateCode();
+        List<String> assignments = getPropertyAssignments();
+        if (assignments.isEmpty()) return "{}";
+
+        StringBuilder sb = new StringBuilder("{\n");
+        for (int i = 0; i < assignments.size(); i++) {
+            sb.append("  ").append(assignments.get(i));
+            if (i < assignments.size() - 1) sb.append(",");
+            sb.append("\n");
+        }
+        sb.append("}");
+        return sb.toString();
     }
 
     @Override
@@ -39,20 +64,17 @@ public class ComponentConfigNode implements ASTNode {
     public List<ASTNode> getChildren() {
         return Collections.singletonList(properties);
     }
+
     @Override
     public String toString(int level) {
-        StringBuilder sb = new StringBuilder();
         String indent = getIndent(level);
+        StringBuilder sb = new StringBuilder();
         sb.append(indent).append("ComponentConfigNode at line ").append(line).append("\n");
-        if (properties != null) {
-            sb.append(properties.toString(level + 1));
-        }
+        if (properties != null) sb.append(properties.toString(level + 1));
         return sb.toString();
     }
 
     private String getIndent(int level) {
         return String.join("", Collections.nCopies(level, "  "));
     }
-
-
 }

@@ -30,6 +30,7 @@ public class ObjectNode extends BasePrimaryNode {
 
     @Override
     public String generateCode() {
+        // JS object literal: { key: value, ... }
         return "{" + entries.entrySet().stream()
                 .map(e -> e.getKey() + ": " + e.getValue().generateCode())
                 .collect(Collectors.joining(", ")) + "}";

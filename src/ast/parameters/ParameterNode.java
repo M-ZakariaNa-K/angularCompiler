@@ -46,8 +46,8 @@ public class ParameterNode implements ASTNode {
 
     @Override
     public String generateCode() {
-        String prefix = accessModifier != null ? accessModifier.generateCode() + " " : "";
-        return prefix + identifier + ": " + type.generateCode();
+        // JS: just the identifier
+        return identifier;
     }
 
     @Override

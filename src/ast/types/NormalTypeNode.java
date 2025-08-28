@@ -35,7 +35,7 @@ public class NormalTypeNode extends TypeNode {
 
     @Override
     public String generateCode() {
-        return kind == NormalKind.IDENTIFIER ? identifier : kind.name();
+        return "";
     }
 
     @Override

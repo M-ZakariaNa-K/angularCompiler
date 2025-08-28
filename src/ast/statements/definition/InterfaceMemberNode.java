@@ -18,7 +18,7 @@ public class InterfaceMemberNode implements ASTNode {
 
     @Override
     public String getSymbolName() {
-        return "InterfaceMember";
+        return  "";
     }
 
     @Override

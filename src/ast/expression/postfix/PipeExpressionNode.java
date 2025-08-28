@@ -40,11 +40,9 @@ public class PipeExpressionNode extends PostfixOpNode {
 
     @Override
     public String generateCode() {
-        String args = arguments.isEmpty() ? "" : ":" + arguments.stream()
-                .map(ExpressionNode::generateCode)
-                .collect(Collectors.joining(":"));
-        return " | " + pipeName + args;
+        return ""; // No target available here
     }
+
 
     @Override
     public int getLine() {

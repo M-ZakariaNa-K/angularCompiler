@@ -21,8 +21,9 @@ public class SideEffectImportNode extends ImportStatementNode{
 
     @Override
     public String generateCode() {
-        return "import " + modulePath + ";";
+        return "import \"" + modulePath + "\";";
     }
+
 
     @Override
     public int getLine() {

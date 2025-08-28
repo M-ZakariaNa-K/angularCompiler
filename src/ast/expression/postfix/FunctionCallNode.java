@@ -33,7 +33,10 @@ public class FunctionCallNode extends PostfixOpNode {
 
     @Override
     public String generateCode() {
-        return "(" + arguments.stream().map(ExpressionNode::generateCode).collect(Collectors.joining(", ")) + ")";
+        // Generate JS-style function call: target(args...)
+        return "(" + arguments.stream()
+                .map(ExpressionNode::generateCode)
+                .collect(Collectors.joining(", ")) + ")";
     }
 
     @Override

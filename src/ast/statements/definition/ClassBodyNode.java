@@ -37,8 +37,27 @@ public class ClassBodyNode implements ASTNode {
 
     @Override
     public String generateCode() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+
+        // Optional: emit decorators as comments
+        for (DecoratorNode decorator : decorators) {
+            sb.append(decorator.generateCode()).append("\n");
+        }
+
+        // Emit class members
+        for (ASTNode member : classMembers) {
+            String memberCode = member.generateCode();
+            if (!memberCode.isEmpty()) {
+                // indent each line by 2 spaces
+                for (String line : memberCode.split("\n")) {
+                    sb.append("  ").append(line).append("\n");
+                }
+            }
+        }
+
+        return sb.toString();
     }
+
 
     @Override
     public int getLine() {

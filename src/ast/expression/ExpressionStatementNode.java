@@ -24,7 +24,7 @@ public class ExpressionStatementNode extends StatementNode {
 
     @Override
     public String generateCode() {
-        return "";
+        return expression.generateCode() + ";";
     }
 
     @Override

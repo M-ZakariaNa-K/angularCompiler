@@ -30,7 +30,17 @@ public class AccessModifierNode implements ASTNode {
 
     @Override
     public String generateCode() {
-        return modifier.name().toLowerCase();
+        switch (modifier) {
+            case PRIVATE:
+                // JavaScript uses '#' prefix for private fields/methods
+                return "#";
+            case PUBLIC:
+            case PROTECTED:
+            case READONLY:
+            default:
+                // Not directly supported, keep as comment for clarity
+                return "// " + modifier.name().toLowerCase();
+        }
     }
 
     @Override

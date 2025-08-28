@@ -27,8 +27,17 @@ public class LogicalOrExpressionNode extends ExpressionNode {
 
     @Override
     public String generateCode() {
-        return "";
+        if (operands.isEmpty()) return "";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < operands.size(); i++) {
+            sb.append(operands.get(i).generateCode());
+            if (i < operands.size() - 1) {
+                sb.append(" || ");
+            }
+        }
+        return sb.toString();
     }
+
 
     @Override
     public int getLine() {

@@ -18,18 +18,29 @@ public class TemplatePropertyNode extends ComponentPropertyNode {
     }
 
     @Override
+    public String getKey() {
+        return "template";
+    }
+
+    @Override
+    public String getValue() {
+        return templateContent;
+    }
+
+    @Override
     public String generateCode() {
-        return "template: " + templateContent;
+        return getKey() + ": " + getValue();
     }
 
     @Override
     public List<ASTNode> getChildren() {
         return Collections.emptyList();
     }
+
     @Override
     public String toString(int level) {
-        StringBuilder sb = new StringBuilder();
         String indent = getIndent(level);
+        StringBuilder sb = new StringBuilder();
         sb.append(indent).append("TemplatePropertyNode at line ").append(getLine()).append("\n");
         sb.append(indent).append("  ").append(templateContent).append("\n");
         return sb.toString();
@@ -38,7 +49,4 @@ public class TemplatePropertyNode extends ComponentPropertyNode {
     private String getIndent(int level) {
         return String.join("", Collections.nCopies(level, "  "));
     }
-
-
 }
-

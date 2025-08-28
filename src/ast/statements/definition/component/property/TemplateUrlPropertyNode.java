@@ -1,7 +1,6 @@
 package ast.statements.definition.component.property;
 
 import ast.ASTNode;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -19,8 +18,18 @@ public class TemplateUrlPropertyNode extends ComponentPropertyNode {
     }
 
     @Override
+    public String getKey() {
+        return "templateUrl";
+    }
+
+    @Override
+    public String getValue() {
+        return value;
+    }
+
+    @Override
     public String generateCode() {
-        return "templateUrl: \"" + value + "\"";
+        return getKey() + ": " + getValue();
     }
 
     @Override
@@ -30,17 +39,14 @@ public class TemplateUrlPropertyNode extends ComponentPropertyNode {
 
     @Override
     public String toString(int level) {
-        StringBuilder sb = new StringBuilder();
         String indent = getIndent(level);
+        StringBuilder sb = new StringBuilder();
         sb.append(indent).append("TemplateUrlPropertyNode at line ").append(getLine()).append("\n");
-        sb.append(indent).append("  ").append("\"").append(value).append("\"").append("\n");
+        sb.append(indent).append("  ").append(value).append("\n");
         return sb.toString();
     }
 
     private String getIndent(int level) {
         return String.join("", Collections.nCopies(level, "  "));
     }
-
-
 }
-

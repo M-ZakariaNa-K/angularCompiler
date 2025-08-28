@@ -26,11 +26,7 @@ public class InterfaceBodyNode implements ASTNode {
 
     @Override
     public String generateCode() {
-        StringBuilder code = new StringBuilder();
-        for (InterfaceMemberNode member : members) {
-            code.append("  ").append(member.generateCode()).append("\n");
-        }
-        return code.toString();
+      return  "";
     }
 
     @Override

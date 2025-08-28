@@ -1,7 +1,8 @@
 package ast.expression;
 
 import ast.ASTNode;
-import ast.statements.StatementNode;
 
-public abstract class ExpressionNode extends StatementNode {
+public abstract class ExpressionNode extends ast.statements.StatementNode {
+    @Override
+    public abstract String generateCode();
 }

@@ -47,8 +47,27 @@ public class classVariableDeclarationNode implements ASTNode {
 
     @Override
     public String generateCode() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+
+        // Optional: emit access modifier as comment
+        if (accessModifier != null) {
+            String modifier = accessModifier.generateCode();
+            if (!modifier.isEmpty()) {
+                sb.append("// ").append(modifier).append("\n");
+            }
+        }
+
+        sb.append(identifier);
+
+        if (expression != null) {
+            sb.append(" = ").append(expression.generateCode());
+        }
+
+        sb.append(";");
+
+        return sb.toString();
     }
+
 
     @Override
     public int getLine() {

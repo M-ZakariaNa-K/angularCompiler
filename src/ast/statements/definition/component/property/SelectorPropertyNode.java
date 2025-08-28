@@ -1,7 +1,6 @@
 package ast.statements.definition.component.property;
 
 import ast.ASTNode;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -13,8 +12,14 @@ public class SelectorPropertyNode extends ComponentPropertyNode {
         this.value = value;
     }
 
+    @Override
+    public String getKey() {
+        return "selector";
+    }
+
+    @Override
     public String getValue() {
-        return value;
+        return "\"" + value + "\""; // wrap in quotes for JS
     }
 
     @Override
@@ -24,31 +29,21 @@ public class SelectorPropertyNode extends ComponentPropertyNode {
 
     @Override
     public String generateCode() {
-        return "selector: \"" + value + "\"";
+        return getKey() + ": " + getValue();
     }
 
     @Override
     public List<ASTNode> getChildren() {
-        return  Collections.emptyList();
+        return Collections.emptyList();
     }
 
     @Override
     public String toString(int level) {
-        StringBuilder sb = new StringBuilder();
         String indent = getIndent(level);
-        sb.append(indent)
-                .append("SelectorPropertyNode: \"")
-                .append(value)
-                .append("\" at line ")
-                .append(getLine())
-                .append("\n");
-        return sb.toString();
+        return indent + "SelectorPropertyNode: \"" + value + "\" at line " + getLine() + "\n";
     }
 
     private String getIndent(int level) {
         return String.join("", Collections.nCopies(level, "  "));
     }
-
-
 }
-

@@ -25,11 +25,13 @@ public class InterfaceDefinitionNode extends StatementNode {
 
     @Override
     public String generateCode() {
-        StringBuilder code = new StringBuilder("interface " + name + " {\n");
-            code.append("  ").append(members.generateCode()).append("\n");
-        code.append("}");
-        return code.toString();
+
+
+        // Option 2: emit JSDoc for documentation
+
+        return "/**\n * @interface " + name + "\n */\n" + "const " + name + " = {};\n";
     }
+
 
     @Override
     public int getLine() {

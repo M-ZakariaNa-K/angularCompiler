@@ -28,7 +28,7 @@ public class ConstantDeclarationNode extends StatementNode {
 
     @Override
     public String generateCode() {
-        return "const " + identifier + ": " + type.generateCode() + " = " + expression.generateCode() + ";";
+        return "const " + identifier +  " = " + expression.generateCode() + ";";
     }
 
     @Override

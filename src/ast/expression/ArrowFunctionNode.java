@@ -47,16 +47,10 @@ public class ArrowFunctionNode extends ExpressionNode {
         StringBuilder sb = new StringBuilder();
         sb.append("(");
         for (int i = 0; i < parameters.size(); i++) {
-            sb.append(parameters.get(i).generateCode());
-            if (i < parameters.size() - 1) {
-                sb.append(", ");
-            }
+            sb.append(parameters.get(i).getIdentifier()); // Use JS identifier only
+            if (i < parameters.size() - 1) sb.append(", ");
         }
-        sb.append(")");
-        if (returnType != null) {
-            sb.append(": ").append(returnType.generateCode());
-        }
-        sb.append(" => ");
+        sb.append(") => ");
         sb.append(body.generateCode());
         return sb.toString();
     }

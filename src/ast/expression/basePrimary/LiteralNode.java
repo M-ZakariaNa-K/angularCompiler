@@ -29,9 +29,16 @@ public class LiteralNode extends BasePrimaryNode {
             return "null";
         }
         if (value instanceof String) {
-            return "\"" + value + "\"";
+            // Escape quotes and backslashes for JS string
+            String escaped = ((String) value)
+                    .replace("\\", "\\\\")
+                    .replace("\"", "\\\"");
+            return "\"" + escaped + "\"";
         }
-        return value.toString();
+        if (value instanceof Boolean) {
+            return ((Boolean) value) ? "true" : "false";
+        }
+        return value.toString(); // Numbers are printed as-is
     }
 
     @Override
@@ -46,9 +53,7 @@ public class LiteralNode extends BasePrimaryNode {
 
     @Override
     public String toString(int level) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getIndent(level)).append("LiteralNode: ").append(generateCode()).append("\n");
-        return sb.toString();
+        return getIndent(level) + "LiteralNode: " + generateCode() + "\n";
     }
 
     private String getIndent(int level) {
@@ -58,6 +63,4 @@ public class LiteralNode extends BasePrimaryNode {
         }
         return indent.toString();
     }
-
-
 }

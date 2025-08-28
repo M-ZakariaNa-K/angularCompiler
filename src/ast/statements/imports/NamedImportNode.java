@@ -31,7 +31,7 @@ public class NamedImportNode extends ImportStatementNode{
 
     @Override
     public String generateCode() {
-        return "import { " + String.join(", ", identifiers) + " }" + " from " + modulePath + ";";
+        return "import { " + String.join(", ", identifiers) + " } from \"" + modulePath + "\";";
     }
 
     @Override

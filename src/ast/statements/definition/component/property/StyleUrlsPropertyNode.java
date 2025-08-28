@@ -1,7 +1,6 @@
 package ast.statements.definition.component.property;
 
 import ast.ASTNode;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,20 +19,31 @@ public class StyleUrlsPropertyNode extends ComponentPropertyNode {
     }
 
     @Override
-    public String generateCode() {
-        return "styleUrls: [" + urls.stream()
-                .map(s -> "\"" + s + "\"")
+    public String getKey() {
+        return "styleUrls";
+    }
+
+    @Override
+    public String getValue() {
+        return "[" + urls.stream()
+                .map(url -> url)
                 .collect(Collectors.joining(", ")) + "]";
+    }
+
+    @Override
+    public String generateCode() {
+        return getKey() + ": " + getValue();
     }
 
     @Override
     public List<ASTNode> getChildren() {
         return Collections.emptyList();
     }
+
     @Override
     public String toString(int level) {
-        StringBuilder sb = new StringBuilder();
         String indent = getIndent(level);
+        StringBuilder sb = new StringBuilder();
         sb.append(indent).append("StyleUrlsPropertyNode at line ").append(getLine()).append("\n");
         for (String url : urls) {
             sb.append(indent).append("  ").append(url).append("\n");
@@ -44,6 +54,4 @@ public class StyleUrlsPropertyNode extends ComponentPropertyNode {
     private String getIndent(int level) {
         return String.join("", Collections.nCopies(level, "  "));
     }
-
-
 }

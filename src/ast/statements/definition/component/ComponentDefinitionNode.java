@@ -42,14 +42,42 @@ public class ComponentDefinitionNode extends StatementNode {
 
     @Override
     public String generateCode() {
-        StringBuilder code = new StringBuilder("@Component({\n");
-        code.append(componentConfigNode.generateCode());
-        code.append("})\nclass ").append(className);
-        if (extendsStatement != null) code.append(" ").append(extendsStatement.generateCode());
-        code.append(" ").append(implementsStatements.generateCode());
-        code.append(" ").append(classBody.generateCode());
+        StringBuilder code = new StringBuilder();
+
+        // Export if needed
+        if (isExported) {
+            code.append("export ");
+        }
+
+        // Class declaration
+        code.append("class ").append(className);
+        if (extendsStatement != null) {
+            String parent = extendsStatement.generateCode();
+            if (!parent.isEmpty()) code.append(" ").append(parent);
+        }
+        code.append(" {\n");
+
+        // Class body members
+        if (classBody != null) {
+            String bodyCode = classBody.generateCode();
+            if (bodyCode != null && !bodyCode.isEmpty()) {
+                for (String line : bodyCode.split("\n")) {
+                    code.append("  ").append(line).append("\n");
+                }
+            }
+        }
+        code.append("}\n");
+
+        // Attach component metadata as static fields
+        if (componentConfigNode != null) {
+            for (String assignment : componentConfigNode.getPropertyAssignments()) {
+                code.append(className).append(".").append(assignment).append(";\n");
+            }
+        }
+
         return code.toString();
     }
+
 
     @Override
     public int getLine() {

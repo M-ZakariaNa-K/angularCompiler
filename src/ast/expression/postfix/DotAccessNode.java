@@ -32,7 +32,7 @@ public class DotAccessNode extends PostfixOpNode {
 
     @Override
     public String generateCode() {
-        return "." + identifier;
+        return identifier;
     }
 
     @Override

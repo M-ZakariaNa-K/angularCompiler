@@ -25,7 +25,7 @@ public class ImplementsStatementNode implements ASTNode {
 
     @Override
     public String generateCode() {
-        return "implements " + String.join(", ", interfaces);
+        return "/* implements " + String.join(", ", interfaces) + " */";
     }
 
     @Override

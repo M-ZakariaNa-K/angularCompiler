@@ -9,7 +9,6 @@ public class PropertyAccessNode extends ExpressionNode {
     private final ExpressionNode target;
     private final String property;
 
-
     public PropertyAccessNode(ExpressionNode target, String property) {
         this.target = target;
         this.property = property;
@@ -30,6 +29,7 @@ public class PropertyAccessNode extends ExpressionNode {
 
     @Override
     public String generateCode() {
+        // Generate JS-style property access
         return target.generateCode() + "." + property;
     }
 
@@ -49,17 +49,13 @@ public class PropertyAccessNode extends ExpressionNode {
         String indent = getIndent(level);
 
         sb.append(indent).append("PropertyAccessNode: .").append(property).append("\n");
-        sb.append(target.toString(level + 1)).append("\n");
+        // print target first for a better visual hierarchy
+        sb.append(target.toString(level + 1));
 
         return sb.toString();
     }
 
     private String getIndent(int level) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < level; i++) {
-            sb.append("  ");
-        }
-        return sb.toString();
+        return String.join("", Collections.nCopies(level, "  "));
     }
-
 }

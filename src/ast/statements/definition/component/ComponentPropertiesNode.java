@@ -27,15 +27,9 @@ public class ComponentPropertiesNode implements ASTNode {
 
     @Override
     public String generateCode() {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < properties.size(); i++) {
-            builder.append(properties.get(i).generateCode());
-            if (i < properties.size() - 1) {
-                builder.append(",\n");
-            }
-        }
-        return builder.toString();
+      return "";
     }
+
 
     @Override
     public int getLine() {

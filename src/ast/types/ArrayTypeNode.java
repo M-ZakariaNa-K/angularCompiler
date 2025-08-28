@@ -25,7 +25,7 @@ public class ArrayTypeNode extends TypeNode {
 
     @Override
     public String generateCode() {
-        return elementType.getSymbolName() + "[]";
+        return "";
     }
 
     @Override

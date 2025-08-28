@@ -39,11 +39,15 @@ public class ArrowFunctionDeclarationNode extends FunctionDeclarationNode {
 
     @Override
     public String generateCode() {
+        // JS: declaration keyword (let/var/const) + identifier + arrow function code
         StringBuilder sb = new StringBuilder();
         if (declarationKind != null) {
             sb.append(declarationKind.name().toLowerCase()).append(" ");
         }
-        sb.append(identifier).append(" = ").append(arrowFunction.generateCode()).append(";");
+        sb.append(identifier)
+                .append(" = ")
+                .append(arrowFunction.generateCode())
+                .append(";");
         return sb.toString();
     }
 
@@ -57,11 +61,12 @@ public class ArrowFunctionDeclarationNode extends FunctionDeclarationNode {
         return Collections.singletonList(arrowFunction);
     }
 
-
+    @Override
     public String toString(int level) {
-        StringBuilder sb = new StringBuilder();
         String indent = getIndent(level);
-        sb.append(indent).append("ArrowFunctionDeclarationNode: ").append(identifier);
+        StringBuilder sb = new StringBuilder();
+        sb.append(indent)
+                .append("ArrowFunctionDeclarationNode: ").append(identifier);
         if (declarationKind != null) {
             sb.append(" [").append(declarationKind.name()).append("]");
         }
@@ -73,12 +78,6 @@ public class ArrowFunctionDeclarationNode extends FunctionDeclarationNode {
     }
 
     private String getIndent(int level) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < level; i++) {
-            sb.append("  ");
-        }
-        return sb.toString();
+        return String.join("", Collections.nCopies(level, "  "));
     }
-
-
 }

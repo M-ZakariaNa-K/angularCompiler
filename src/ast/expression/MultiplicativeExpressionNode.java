@@ -34,8 +34,16 @@ public class MultiplicativeExpressionNode extends ExpressionNode {
 
     @Override
     public String generateCode() {
-        return "";
+        if (operands.isEmpty()) return "";
+        StringBuilder sb = new StringBuilder();
+        sb.append(operands.get(0).generateCode());
+        for (int i = 1; i < operands.size(); i++) {
+            sb.append(" ").append(operators.get(i - 1)).append(" ");
+            sb.append(operands.get(i).generateCode());
+        }
+        return sb.toString();
     }
+
 
     @Override
     public int getLine() {

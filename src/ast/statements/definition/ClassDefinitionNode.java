@@ -48,8 +48,35 @@ public class ClassDefinitionNode extends StatementNode {
 
     @Override
     public String generateCode() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+
+        // Start class declaration
+        sb.append("class ").append(name);
+
+        // Extends
+        if (extendsStatement != null) {
+            String parentCode = extendsStatement.generateCode();
+            if (!parentCode.isEmpty()) {
+                sb.append(" ").append(parentCode);
+            }
+        }
+
+        sb.append(" {\n");
+
+        // Class body
+        if (classBody != null) {
+            String bodyCode = classBody.generateCode();
+            if (!bodyCode.isEmpty()) {
+                for (String line : bodyCode.split("\n")) {
+                    sb.append("  ").append(line).append("\n"); // indent body
+                }
+            }
+        }
+
+        sb.append("}");
+        return sb.toString();
     }
+
 
     @Override
     public int getLine() {

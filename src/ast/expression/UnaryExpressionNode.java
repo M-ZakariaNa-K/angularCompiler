@@ -33,8 +33,12 @@ public class UnaryExpressionNode extends ExpressionNode {
 
     @Override
     public String generateCode() {
-        return "";
+        if (operator != null) {
+            return operator + operand.generateCode();
+        }
+        return operand.generateCode();
     }
+
 
     @Override
     public int getLine() {

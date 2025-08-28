@@ -34,14 +34,16 @@ public class VariableDeclarationNode extends StatementNode {
     @Override
     public String generateCode() {
         StringBuilder sb = new StringBuilder();
+        // JS variable kind: let, const, var
         sb.append(declarationKind.toString().toLowerCase()).append(" ");
-        sb.append(identifier).append(": ").append(type.generateCode());
+        sb.append(identifier);
         if (expression != null) {
             sb.append(" = ").append(expression.generateCode());
         }
         sb.append(";");
         return sb.toString();
     }
+
 
     @Override
     public int getLine() {

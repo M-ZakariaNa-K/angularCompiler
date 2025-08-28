@@ -34,12 +34,18 @@ public class PrimaryExpressionNode extends ExpressionNode {
 
     @Override
     public String generateCode() {
-        StringBuilder sb = new StringBuilder(base.generateCode());
+        StringBuilder sb = new StringBuilder();
+        // Base expression code
+        sb.append(base.generateCode());
+
+        // Append each postfix operation
         for (PostfixOpNode op : postfixOps) {
             sb.append(op.generateCode());
         }
+
         return sb.toString();
     }
+
 
     @Override
     public int getLine() {

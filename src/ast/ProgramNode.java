@@ -32,7 +32,13 @@ public class ProgramNode implements ASTNode {
 
     @Override
     public String generateCode() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        for (StatementNode stmt : statements) {
+            sb.append(stmt.generateCode());
+            // Optionally, add a newline between statements
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -50,9 +56,9 @@ public class ProgramNode implements ASTNode {
         if (statements != null && !statements.isEmpty()) {
             for (StatementNode stmt : statements) {
                 for (int i = 0; i< level; i++){
-                    sb.append("  ");
+                    sb.append(" ");
                 }
-                sb.append("  ").append(stmt.toString(level + 1)).append("\n");
+                sb.append(" ").append(stmt.toString(level + 1)).append("\n");
             }
         }
         return sb.toString();

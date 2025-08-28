@@ -21,7 +21,7 @@ public class DecoratorNode implements ASTNode {
 
     @Override
     public String generateCode() {
-        return "@" + identifier;
+        return "// @" + identifier;
     }
 
     @Override

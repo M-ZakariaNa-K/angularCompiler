@@ -19,8 +19,21 @@ public class StylesPropertyNode extends ComponentPropertyNode {
     }
 
     @Override
+    public String getKey() {
+        return "styles";
+    }
+
+    @Override
+    public String getValue() {
+        // Wrap each style in quotes for valid JS
+        return "[" + styles.stream()
+                .map(s -> s)
+                .collect(Collectors.joining(", ")) + "]";
+    }
+
+    @Override
     public String generateCode() {
-        return "styles: [" + styles.stream().collect(Collectors.joining(", ")) + "]";
+        return getKey() + ": " + getValue();
     }
 
     @Override
@@ -30,8 +43,8 @@ public class StylesPropertyNode extends ComponentPropertyNode {
 
     @Override
     public String toString(int level) {
-        StringBuilder sb = new StringBuilder();
         String indent = getIndent(level);
+        StringBuilder sb = new StringBuilder();
         sb.append(indent).append("StylesPropertyNode at line ").append(getLine()).append("\n");
         for (String style : styles) {
             sb.append(indent).append("  ").append(style).append("\n");
@@ -42,7 +55,4 @@ public class StylesPropertyNode extends ComponentPropertyNode {
     private String getIndent(int level) {
         return String.join("", Collections.nCopies(level, "  "));
     }
-
-
 }
-

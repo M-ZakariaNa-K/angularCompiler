@@ -34,8 +34,13 @@ public class EnumValueNode extends DeclarationNode {
 
     @Override
     public String generateCode() {
-        return "";
+        if (value != null) {
+            return "\"" + name + "\":" + value.generateCode();
+        }
+        // If no explicit value, JS enum can just assign auto-increment numbers
+        return "\"" + name + "\":" + name; // placeholder; we'll handle auto-number in EnumDefinitionNode
     }
+
 
     @Override
     public int getLine() {

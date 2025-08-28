@@ -25,10 +25,9 @@ public class ParameterListNode implements ASTNode {
 
     @Override
     public String generateCode() {
-        return "(" + parameters.stream()
-                .map(ExpressionParameterNode::generateCode)
-                .reduce((a, b) -> a + ", " + b)
-                .orElse("") + ")";
+        // JS: comma-separated identifiers only
+        return "(" + String.join(", ",
+                parameters.stream().map(ExpressionParameterNode::generateCode).toArray(String[]::new)) + ")";
     }
 
     @Override

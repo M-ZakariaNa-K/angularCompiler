@@ -24,8 +24,9 @@ public class DefaultImportNode extends ImportStatementNode{
 
     @Override
     public String generateCode() {
-        return "import " + identifier + " from " + modulePath + ";";
+        return "import " + identifier + " from \"" + modulePath + "\";";
     }
+
 
     @Override
     public int getLine() {
