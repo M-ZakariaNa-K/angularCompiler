@@ -59,8 +59,8 @@ public class BaseVisitor extends AbstractParseTreeVisitor<ASTNode> implements An
             }
         }
 
-        //System.out.println(programNode.toString(0));
-        //symbolManager.printAllScopes();
+//        System.out.println(programNode.toString(0));
+//        symbolManager.printAllScopes();
         System.out.println(programNode.generateCode());
 
         if (errorReporter.hasErrors()) {

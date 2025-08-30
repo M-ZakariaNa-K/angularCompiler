@@ -54,8 +54,30 @@ public class TryCatchStatementNode extends StatementNode {
 
     @Override
     public String generateCode() {
-        return ""; // To be implemented
+        StringBuilder sb = new StringBuilder();
+
+        // Try block
+        sb.append(tryBlock.generateCode());
+
+        // Catch block (must always have an identifier in JS)
+        if (catchBlock != null) {
+            if (exceptionIdentifier == null || exceptionIdentifier.trim().isEmpty()) {
+                throw new IllegalStateException("Catch block requires an exception identifier for code generation.");
+            }
+
+            sb.append("catch (").append(exceptionIdentifier).append(")\n");
+            sb.append(catchBlock.generateCode());
+        }
+
+        // Finally block
+        if (finallyBlock != null) {
+            sb.append("finally\n");
+            sb.append(finallyBlock.generateCode());
+        }
+
+        return sb.toString();
     }
+
 
     @Override
     public int getLine() {

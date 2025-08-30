@@ -49,7 +49,23 @@ public class MethodDefinitionNode extends DeclarationNode {
 
     @Override
     public String generateCode() {
-       return "";
+        StringBuilder sb = new StringBuilder();
+
+        // Method signature
+        sb.append(methodName).append("(");
+        if (parameters != null) {
+            sb.append(parameters.generateCode());
+        }
+        sb.append(") ");
+
+        // Method body
+        if (block != null) {
+            sb.append(block.generateCode());
+        } else {
+            sb.append("{}"); // empty body
+        }
+
+        return sb.toString();
     }
 
     @Override

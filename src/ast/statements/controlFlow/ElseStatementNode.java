@@ -27,9 +27,13 @@ public class ElseStatementNode extends StatementNode {
 
     @Override
     public String generateCode() {
-        return "";
-    }
+        StringBuilder sb = new StringBuilder();
 
+        sb.append("else \n");
+        sb.append(body.generateCode());
+
+        return sb.toString();
+    }
     @Override
     public int getLine() {
         return line;

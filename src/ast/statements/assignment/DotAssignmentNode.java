@@ -26,8 +26,9 @@ public class DotAssignmentNode extends AssignmentToNode {
 
     @Override
     public String generateCode() {
-        return "";
+        return "this." + identifier;
     }
+
 
     @Override
     public int getLine() {

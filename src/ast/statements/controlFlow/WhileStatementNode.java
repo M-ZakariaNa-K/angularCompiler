@@ -36,7 +36,15 @@ public class WhileStatementNode extends StatementNode {
 
     @Override
     public String generateCode() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("while (");
+        sb.append(condition.generateCode());
+        sb.append(")\n");
+
+        sb.append(body.generateCode());
+
+        return sb.toString();
     }
 
     @Override

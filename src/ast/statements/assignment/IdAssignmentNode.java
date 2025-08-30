@@ -26,8 +26,9 @@ public class IdAssignmentNode extends AssignmentToNode {
 
     @Override
     public String generateCode() {
-        return "";
+        return identifier;
     }
+
 
     @Override
     public int getLine() {

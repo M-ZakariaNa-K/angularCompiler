@@ -33,20 +33,25 @@ public class NormalFunctionDeclarationNode extends FunctionDeclarationNode {
     public String generateCode() {
         StringBuilder sb = new StringBuilder();
         sb.append("function ").append(name).append("(");
+
         for (int i = 0; i < parameterList.size(); i++) {
             sb.append(parameterList.get(i).generateCode());
             if (i < parameterList.size() - 1) {
                 sb.append(", ");
             }
         }
-        sb.append(")");
-        if (type != null) {
-            sb.append(": ").append(type.generateCode());
+
+        sb.append(") ");
+
+        if (block != null) {
+            sb.append(block.generateCode());
+        } else {
+            sb.append("{}"); // fallback for empty function
         }
-        sb.append(" ");
-        sb.append(block.generateCode());
+
         return sb.toString();
     }
+
 
     @Override
     public int getLine() {

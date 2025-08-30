@@ -34,15 +34,28 @@ public class VariableDeclarationNode extends StatementNode {
     @Override
     public String generateCode() {
         StringBuilder sb = new StringBuilder();
-        // JS variable kind: let, const, var
-        sb.append(declarationKind.toString().toLowerCase()).append(" ");
+        // Explicit mapping for safety
+        switch (declarationKind) {
+            case LET:
+                sb.append("let ");
+                break;
+            case VAR:
+                sb.append("var ");
+                break;
+            default:
+                sb.append("let "); // fallback
+        }
+
         sb.append(identifier);
+
         if (expression != null) {
             sb.append(" = ").append(expression.generateCode());
         }
+
         sb.append(";");
         return sb.toString();
     }
+
 
 
     @Override

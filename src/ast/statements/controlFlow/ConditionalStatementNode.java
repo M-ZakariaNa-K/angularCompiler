@@ -40,7 +40,23 @@ public class ConditionalStatementNode extends StatementNode {
 
     @Override
     public String generateCode() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+
+        // Generate the main if branch
+        sb.append(ifBranch.generateCode());
+
+        // Generate all else-if branches
+        for (IfStatementNode elseIf : elseIfBranches) {
+            sb.append("else ");
+            sb.append(elseIf.generateCode());
+        }
+
+        // Generate the optional else branch
+        if (elseBranch != null) {
+            sb.append(elseBranch.generateCode());
+        }
+
+        return sb.toString();
     }
 
     @Override

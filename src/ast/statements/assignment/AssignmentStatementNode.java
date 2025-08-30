@@ -35,7 +35,27 @@ public class AssignmentStatementNode extends StatementNode {
 
     @Override
     public String generateCode() {
-        return "";
+        // Build left-hand side from all assignment targets
+        StringBuilder lhs = new StringBuilder();
+        for (int i = 0; i < targets.size(); i++) {
+            AssignmentToNode target = targets.get(i);
+
+            // For the first one (like variable name or arr[x])
+            if (i == 0) {
+                lhs.append(target.generateCode());
+            } else {
+                // For chained dot/arr access, prepend a dot unless already handled
+                if (!(target instanceof ArrAssignmentNode)) {
+                    lhs.append(".");
+                }
+                lhs.append(target.generateCode());
+            }
+        }
+
+        // Right-hand side
+        String rhs = expression.generateCode();
+
+        return lhs.toString() + " = " + rhs + ";";
     }
 
     @Override

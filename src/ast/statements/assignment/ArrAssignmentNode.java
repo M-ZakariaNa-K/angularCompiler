@@ -34,8 +34,9 @@ public class ArrAssignmentNode extends AssignmentToNode {
 
     @Override
     public String generateCode() {
-        return "";
+        return identifier + "[" + indexExpression.generateCode() + "]";
     }
+
 
     @Override
     public int getLine() {

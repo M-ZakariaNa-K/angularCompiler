@@ -2,6 +2,8 @@ import {Component,onInit}  from "angular/core";
 import fetchApi from "../../api/fetchApi";
 import "my/module";
 
+
+
 enum ROLE  {
     ADMIN="admin",
     EMPLOYEE="employee"
@@ -23,9 +25,13 @@ const api_url = (id:number):string => "localhost:3000/api/user/getname/" + id
 
 const getName = (url:string):unknwon => {
     try {
+
+
         const response:response  = fetchApi(url);
         return response;
     } catch (ex:Expeption) {
+        return null;
+    } finally {
         return null;
     }
 }
@@ -34,7 +40,11 @@ class employee implements user {
     private name:string;
     private role:ROLE = "employee";
     id:number;
-}
+    constructor (name:string,role:ROLE,id:number) {
+        this.name = name;
+        this.role = role;
+        this.id = id;
+    }
 
 @Component({
     selector: "employeeCard",

@@ -35,7 +35,26 @@ public class ConstructorDefinitionNode extends FunctionDeclarationNode {
 
     @Override
     public String generateCode() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+
+        // Constructor keyword
+        sb.append("constructor(");
+
+        // Parameters (if any)
+        if (parameters != null) {
+            sb.append(parameters.generateCode());
+        }
+
+        sb.append(") ");
+
+        // Body (if any)
+        if (body != null) {
+            sb.append(body.generateCode());
+        } else {
+            sb.append("{}");
+        }
+
+        return sb.toString();
     }
 
 
