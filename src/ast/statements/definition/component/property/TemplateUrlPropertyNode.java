@@ -1,6 +1,8 @@
 package ast.statements.definition.component.property;
 
 import ast.ASTNode;
+import visitor.FileExporter;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -35,6 +37,10 @@ public class TemplateUrlPropertyNode extends ComponentPropertyNode {
 
     @Override
     public String generateCode() {
+        System.err.println("writing");
+        if (htmlAst != null) {
+             FileExporter.exportToFile(htmlAst.generateCode(), "html");
+        }
         return getKey() + ": " + getValue();
     }
 

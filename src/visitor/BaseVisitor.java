@@ -69,11 +69,14 @@ public class BaseVisitor extends AbstractParseTreeVisitor<ASTNode> implements An
             }
         }
 
+        System.err.println("**********AST************\n");
         System.out.println(programNode.toString(0));
-//        symbolManager.printAllScopes();
-        System.out.println(programNode.generateCode());
+        System.err.println("**********SYMBOL TABLE************\n");
+        symbolManager.printAllScopes();
+        FileExporter.exportToFile(programNode.generateCode(), "js");
 
         if (errorReporter.hasErrors()) {
+            System.err.println("**********ERRORS************\n");
             errorReporter.printAll();
             System.exit(1); // or handle gracefully
         } else {

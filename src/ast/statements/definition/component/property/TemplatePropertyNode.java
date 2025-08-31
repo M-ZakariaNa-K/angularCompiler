@@ -2,6 +2,7 @@ package ast.statements.definition.component.property;
 
 import ast.ASTNode;
 import ast.html.HtmlDocumentNode;
+import visitor.FileExporter;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +34,9 @@ public class TemplatePropertyNode extends ComponentPropertyNode {
 
     @Override
     public String generateCode() {
+        if (htmlAst != null) {
+            FileExporter.exportToFile(htmlAst.generateCode(), "html");
+        }
         // you can generate Angular template code or serialized HTML
         return getKey() + ": `" + templateContent + "`";
     }

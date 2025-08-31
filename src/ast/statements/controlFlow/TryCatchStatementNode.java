@@ -57,7 +57,7 @@ public class TryCatchStatementNode extends StatementNode {
         StringBuilder sb = new StringBuilder();
 
         // Try block
-        sb.append(tryBlock.generateCode());
+        sb.append("try \n").append(tryBlock.generateCode());
 
         // Catch block (must always have an identifier in JS)
         if (catchBlock != null) {

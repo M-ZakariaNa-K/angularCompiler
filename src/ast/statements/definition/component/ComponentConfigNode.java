@@ -30,6 +30,7 @@ public class ComponentConfigNode implements ASTNode {
         for (ComponentPropertyNode prop : properties.getProperties()) {
             String key = prop.getKey(); // Each ComponentPropertyNode must have getKey() and getValue()
             String value = prop.getValue();
+            prop.generateCode();
             assignments.add(key + " = " + value);
         }
         return assignments;

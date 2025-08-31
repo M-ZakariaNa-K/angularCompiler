@@ -36,7 +36,7 @@ public class EnumDefinitionNode extends StatementNode {
     @Override
     public String generateCode() {
         StringBuilder code = new StringBuilder();
-        code.append("var ").append(name).append(" = {};\n");
+        code.append("const ").append(name).append(" = {};\n");
         if (values != null && !values.getValues().isEmpty()) {
             for (EnumValueNode value : values.getValues()) {
                 String valCode = value.getValue() != null ? value.getValue().generateCode() : "\"" + value.getName() + "\"";

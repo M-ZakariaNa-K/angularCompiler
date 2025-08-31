@@ -1,6 +1,8 @@
 package ast.statements.definition.component.property;
 
 import ast.ASTNode;
+import visitor.FileExporter;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +35,11 @@ public class StyleUrlsPropertyNode extends ComponentPropertyNode {
 
     @Override
     public String generateCode() {
+        for (ASTNode cssAst : cssAsts) {
+            if (cssAst != null) {
+//                FileExporter.exportToFile(cssAst.generateCode(), "css");
+            }
+        }
         return getKey() + ": " + getValue();
     }
 
