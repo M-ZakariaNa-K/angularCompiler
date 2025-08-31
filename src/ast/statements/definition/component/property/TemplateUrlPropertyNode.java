@@ -6,10 +6,16 @@ import java.util.List;
 
 public class TemplateUrlPropertyNode extends ComponentPropertyNode {
     private final String value;
+    private final ASTNode htmlAst; // parsed HTML AST
 
-    public TemplateUrlPropertyNode(String value, int line) {
+    public TemplateUrlPropertyNode(String value, ASTNode htmlAst, int line) {
         super(line);
         this.value = value;
+        this.htmlAst = htmlAst;
+    }
+
+    public ASTNode getHtmlAst() {
+        return htmlAst;
     }
 
     @Override
@@ -24,7 +30,7 @@ public class TemplateUrlPropertyNode extends ComponentPropertyNode {
 
     @Override
     public String getValue() {
-        return value;
+        return "\"" + value + "\""; // wrap in quotes for JS
     }
 
     @Override
@@ -34,7 +40,7 @@ public class TemplateUrlPropertyNode extends ComponentPropertyNode {
 
     @Override
     public List<ASTNode> getChildren() {
-        return Collections.emptyList();
+        return htmlAst != null ? Collections.singletonList(htmlAst) : Collections.emptyList();
     }
 
     @Override
@@ -43,6 +49,9 @@ public class TemplateUrlPropertyNode extends ComponentPropertyNode {
         StringBuilder sb = new StringBuilder();
         sb.append(indent).append("TemplateUrlPropertyNode at line ").append(getLine()).append("\n");
         sb.append(indent).append("  ").append(value).append("\n");
+        if (htmlAst != null) {
+            sb.append(htmlAst.toString(level + 1));
+        }
         return sb.toString();
     }
 

@@ -21,7 +21,7 @@ public class CompilerClass {
     public CompilerClass( Path token) {
         ErrorReporter errorReporter = new ErrorReporter();
         SymbolTableManager symbolManager = new SymbolTableManager();
-        this.baseVisitor = new BaseVisitor(symbolManager,errorReporter);
+        this.baseVisitor = new BaseVisitor(symbolManager,errorReporter,token);
         this.token = token;
     }
 
@@ -43,7 +43,6 @@ public class CompilerClass {
             if (!Files.exists(token)) {
                 throw new RuntimeException("File not found: " + token.toAbsolutePath());
             }
-
             CharStream cs = CharStreams.fromPath(token);
             AngularLexer lexer = new AngularLexer(cs);
             CommonTokenStream tokens = new CommonTokenStream(lexer);

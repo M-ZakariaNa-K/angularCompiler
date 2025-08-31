@@ -13,5 +13,6 @@ public enum ErrorType {
     // angular
     MISSING_DECORATOR_PROPERTY,
     MULTIPLE_COMPONENTS,
-    INVALID_SELECTOR
+    INVALID_SELECTOR,
+    FILE_NOT_FOUND
 }

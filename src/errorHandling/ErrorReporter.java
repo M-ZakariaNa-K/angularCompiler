@@ -34,7 +34,9 @@ public class ErrorReporter {
 
     public void printAll() {
         for (ErrorInterface error : errors) {
+            System.err.println("+++++++++++++++++++++++++++********************************++++++++++++++++++++++++");
             System.err.println(error);
+            System.err.println("+++++++++++++++++++++++++++********************************++++++++++++++++++++++++");
         }
     }
 

@@ -1,15 +1,19 @@
 package ast.statements.definition.component.property;
 
 import ast.ASTNode;
+import ast.html.HtmlDocumentNode;
+
 import java.util.Collections;
 import java.util.List;
 
 public class TemplatePropertyNode extends ComponentPropertyNode {
     private final String templateContent;
+    private final HtmlDocumentNode htmlAst; // store parsed HTML
 
-    public TemplatePropertyNode(String templateContent, int line) {
+    public TemplatePropertyNode(String templateContent, HtmlDocumentNode htmlAst, int line) {
         super(line);
         this.templateContent = templateContent;
+        this.htmlAst = htmlAst;
     }
 
     @Override
@@ -29,12 +33,14 @@ public class TemplatePropertyNode extends ComponentPropertyNode {
 
     @Override
     public String generateCode() {
-        return getKey() + ": " + getValue();
+        // you can generate Angular template code or serialized HTML
+        return getKey() + ": `" + templateContent + "`";
     }
 
     @Override
     public List<ASTNode> getChildren() {
-        return Collections.emptyList();
+        // return HTML AST as a child
+        return htmlAst != null ? Collections.singletonList(htmlAst) : Collections.emptyList();
     }
 
     @Override
@@ -43,6 +49,9 @@ public class TemplatePropertyNode extends ComponentPropertyNode {
         StringBuilder sb = new StringBuilder();
         sb.append(indent).append("TemplatePropertyNode at line ").append(getLine()).append("\n");
         sb.append(indent).append("  ").append(templateContent).append("\n");
+        if (htmlAst != null) {
+            sb.append(htmlAst.toString(level + 1));
+        }
         return sb.toString();
     }
 

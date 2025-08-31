@@ -6,7 +6,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/AngularLexer.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\ASUS\Desktop\copiler\new\angularCompiler\src\gen" />
+          <option name="outputDir" value="C:\Users\ASUS\Documents\GitHub\angularCompiler\gen" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />
@@ -16,7 +16,47 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/AngularParser.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\ASUS\Desktop\copiler\new\angularCompiler\src\gen" />
+          <option name="outputDir" value="C:\Users\ASUS\Documents\GitHub\angularCompiler\gen" />
+          <option name="libDir" value="" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="" />
+          <option name="language" value="" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/src/HtmlLexer.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\ASUS\Documents\GitHub\angularCompiler\src\gen" />
+          <option name="libDir" value="" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="" />
+          <option name="language" value="" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/src/HtmlParser.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\ASUS\Documents\GitHub\angularCompiler\src\gen" />
+          <option name="libDir" value="" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="" />
+          <option name="language" value="" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/src/CssLexer.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\ASUS\Documents\GitHub\angularCompiler\src\gen" />
+          <option name="libDir" value="" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="" />
+          <option name="language" value="" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/src/CssParser.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\ASUS\Documents\GitHub\angularCompiler\src\gen" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />

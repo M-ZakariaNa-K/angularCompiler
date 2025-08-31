@@ -1,10 +1,12 @@
 package visitor;
 
 import ast.*;
+import ast.css.CssFileNode;
 import ast.decorators.*;
 import ast.expression.*;
 import ast.expression.basePrimary.*;
 import ast.expression.postfix.*;
+import ast.html.HtmlDocumentNode;
 import ast.modifiers.*;
 import ast.parameters.*;
 import ast.statements.*;
@@ -26,15 +28,22 @@ import ast.statements.inheritance.*;
 import ast.types.*;
 
 import errorHandling.ErrorReporter;
+import errorHandling.ErrorType;
 import errorHandling.sementicError.SementicErrorsChecker;
 import gen.AngularParser;
 import gen.AngularParserVisitor;
+import gen.HtmlLexer;
+import gen.HtmlParser;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import symboltable.Symbol;
 import symboltable.SymbolTableManager;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.*;
 
 
@@ -42,10 +51,11 @@ public class BaseVisitor extends AbstractParseTreeVisitor<ASTNode> implements An
     private final SymbolTableManager symbolManager;
     private final ErrorReporter errorReporter;
     private final SementicErrorsChecker sementicErrorsChecker = new SementicErrorsChecker();
-
-    public BaseVisitor(SymbolTableManager symbolManager, ErrorReporter errorReporter) {
+    private final Path token;
+    public BaseVisitor(SymbolTableManager symbolManager, ErrorReporter errorReporter, Path token) {
         this.symbolManager = symbolManager;
         this.errorReporter = errorReporter;
+        this.token = token;
     }
 
 
@@ -59,7 +69,7 @@ public class BaseVisitor extends AbstractParseTreeVisitor<ASTNode> implements An
             }
         }
 
-//        System.out.println(programNode.toString(0));
+        System.out.println(programNode.toString(0));
 //        symbolManager.printAllScopes();
         System.out.println(programNode.generateCode());
 
@@ -839,26 +849,84 @@ public class BaseVisitor extends AbstractParseTreeVisitor<ASTNode> implements An
 
     @Override
     public ASTNode visitTemplateUrlProp(AngularParser.TemplateUrlPropContext ctx) {
-        String value = ctx.STRING().getText();
-        int line = ctx.getStart().getLine();
-        TemplateUrlPropertyNode node = new TemplateUrlPropertyNode(value, line);
+        // Get the path string and remove surrounding quotes
+        String pathString = ctx.STRING().getText();
+        if ((pathString.startsWith("\"") && pathString.endsWith("\"")) ||
+                (pathString.startsWith("'") && pathString.endsWith("'"))) {
+            pathString = pathString.substring(1, pathString.length() - 1);
+        }
 
-        Symbol symbol = new Symbol(node.getSymbolName(),"templateUrl", value, false,line);
-        symbolManager.currentScope().define( value, symbol);
+        int line = ctx.getStart().getLine();
+        int column = ctx.getStart().getCharPositionInLine();
+
+        HtmlDocumentNode htmlAst = null;
+        Path resolvedPath = token.getParent().resolve(pathString).normalize(); // resolve relative to component file
+
+        try {
+            htmlAst = HtmlUtils.parseHtmlFile(resolvedPath);  // parse HTML into AST
+        } catch (IOException e) {
+            errorReporter.report(
+                    "Failed to read template file: " + pathString,
+                    line,
+                    column,
+                    symbolManager.currentScope(),
+                    ErrorType.FILE_NOT_FOUND
+            );
+        }
+
+        // Create node and store the HTML AST inside
+        TemplateUrlPropertyNode node = new TemplateUrlPropertyNode(pathString, htmlAst, line);
+
+        // Add symbol for semantic analysis
+        Symbol symbol = new Symbol(node.getSymbolName(), "templateUrl", pathString, false, line);
+        symbolManager.currentScope().define(pathString, symbol);
 
         return node;
     }
 
+
+
+
     @Override
     public ASTNode visitStylesUrlProp(AngularParser.StylesUrlPropContext ctx) {
         List<String> urls = new ArrayList<>();
-        for (TerminalNode str : ctx.STRING()) {
-            urls.add(str.getText());
-        }
         int line = ctx.getStart().getLine();
-        StyleUrlsPropertyNode node = new StyleUrlsPropertyNode(urls, line);
+        int column = ctx.getStart().getCharPositionInLine();
+        List<String> visitUrls = new ArrayList<>();
 
-        Symbol symbol = new Symbol(node.getSymbolName(),"styleUrls", urls.toString(), false,line);
+        List<ASTNode> cssAsts = new ArrayList<>();
+
+        for (TerminalNode str : ctx.STRING()) {
+            String url = str.getText();
+
+            urls.add(url);
+
+            // Strip quotes
+            if ((url.startsWith("\"") && url.endsWith("\"")) ||
+                    (url.startsWith("'") && url.endsWith("'"))) {
+                url = url.substring(1, url.length() - 1);
+            }
+
+            visitUrls.add(url);
+
+            Path resolvedPath = token.getParent().resolve(url).normalize();
+
+            try {
+                ASTNode cssAst = CssUtils.parseCssFile(resolvedPath);
+                cssAsts.add(cssAst);
+            } catch (IOException e) {
+                errorReporter.report(
+                        "Failed to read stylesheet file: " + url,
+                        line,
+                        column,
+                        symbolManager.currentScope(),
+                        ErrorType.FILE_NOT_FOUND
+                );
+            }
+        }
+        StyleUrlsPropertyNode node = new StyleUrlsPropertyNode(urls, line,cssAsts);
+
+        Symbol symbol = new Symbol(node.getSymbolName(),"styleUrls", visitUrls.toString(), false,line);
         symbolManager.currentScope().define(urls.toString(), symbol);
 
         return node;
@@ -866,23 +934,32 @@ public class BaseVisitor extends AbstractParseTreeVisitor<ASTNode> implements An
 
     @Override
     public ASTNode visitTemolateProp(AngularParser.TemolatePropContext ctx) {
-        String value;
+        String rawValue;
         if (ctx.STRING() != null) {
-            value = ctx.STRING().getText();
+            rawValue = ctx.STRING().getText();
         } else if (ctx.BACKTICK_STRING() != null) {
-            value = ctx.BACKTICK_STRING().getText();
+            rawValue = ctx.BACKTICK_STRING().getText();
         } else {
             throw new IllegalStateException("Template property must have a STRING or BACKTICK_STRING");
         }
 
+        // Remove quotes or backticks
+        String value = rawValue.substring(1, rawValue.length() - 1);
         int line = ctx.getStart().getLine();
-        TemplatePropertyNode node = new TemplatePropertyNode(value, line);
 
-        Symbol symbol = new Symbol(node.getSymbolName(),"template", value, false,line);
+
+        HtmlDocumentNode htmlAst = HtmlUtils.parseHtml(value);
+
+        // Create Angular TemplatePropertyNode with HTML AST
+        TemplatePropertyNode node = new TemplatePropertyNode(value, htmlAst, line);
+
+        // Add to symbol table
+        Symbol symbol = new Symbol(node.getSymbolName(), "template", value, false, line);
         symbolManager.currentScope().define(value, symbol);
 
         return node;
     }
+
 
     @Override
     public ASTNode visitStyelsProp(AngularParser.StyelsPropContext ctx) {
@@ -1493,4 +1570,5 @@ public class BaseVisitor extends AbstractParseTreeVisitor<ASTNode> implements An
 
         return  decoratorNode;
     }
+
 }

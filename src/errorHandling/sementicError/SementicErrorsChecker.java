@@ -36,6 +36,19 @@ public class SementicErrorsChecker {
             );
         }
     }
+    public String unquote(String value) {
+        if (value == null || value.length() < 2) return value;
+
+        char first = value.charAt(0);
+        char last = value.charAt(value.length() - 1);
+
+        if ((first == '"' && last == '"') || (first == '\'' && last == '\'')) {
+            return value.substring(1, value.length() - 1);
+        }
+
+        return value;
+    }
+
     public void checkForDuplicateDeclaration (String name,int line, int column, SymbolTableManager symbolTableManager, ErrorReporter errorReporter) {
         if (name == null ) return;
 
@@ -172,7 +185,7 @@ public class SementicErrorsChecker {
         for (ComponentPropertyNode componentProperty : componentProperties.getProperties()) {
             if (componentProperty instanceof SelectorPropertyNode){
                 hasSelector = true;
-                selector = ((SelectorPropertyNode) componentProperty).getValue();
+                selector = unquote(((SelectorPropertyNode) componentProperty).getValue());
 
                 if (selector != null && selector.matches("^app-[a-z0-9]+(-[a-z0-9]+)*$")) isValidSelector = true;
             }
@@ -180,7 +193,7 @@ public class SementicErrorsChecker {
 
         if (hasSelector && !isValidSelector) {
             errorReporter.report(
-                    "Invalid selector '" + selector + "'. It must be in kebab-case and prefixed (e.g., 'app-user-list').",
+                    "Invalid selector '" + selector + "'. It must be in kebab-case and prefixed with app (e.g., 'app-user-list').",
                     componentConfigNode.getLine(),
                     column,
                    symbolTableManager.currentScope(),

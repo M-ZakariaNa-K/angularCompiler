@@ -7,10 +7,11 @@ import java.util.stream.Collectors;
 
 public class StyleUrlsPropertyNode extends ComponentPropertyNode {
     private final List<String> urls;
-
-    public StyleUrlsPropertyNode(List<String> urls, int line) {
+    private List<ASTNode> cssAsts;
+    public StyleUrlsPropertyNode(List<String> urls, int line,List<ASTNode> cssAsts) {
         super(line);
         this.urls = urls;
+        this.cssAsts = cssAsts;
     }
 
     @Override
@@ -47,6 +48,9 @@ public class StyleUrlsPropertyNode extends ComponentPropertyNode {
         sb.append(indent).append("StyleUrlsPropertyNode at line ").append(getLine()).append("\n");
         for (String url : urls) {
             sb.append(indent).append("  ").append(url).append("\n");
+        }
+        for (ASTNode cssAst : cssAsts) {
+            sb.append(indent).append("  ").append(cssAst.toString(level + 1)).append("\n");
         }
         return sb.toString();
     }
